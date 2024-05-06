@@ -6,8 +6,10 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'appetite-ui-angular';
+  title: string = 'appetite-ui-angular';
+  description: string =
+    'This is a simple Angular application that demonstrates the use of the Appetite UI components.';
 }
