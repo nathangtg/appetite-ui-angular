@@ -38,6 +38,7 @@
     >
       Login
     </button>
+    <div *ngIf="loginError" class="text-red-500">{{ loginError }}</div>
   </form>
 
   <div class="mt-4" *ngIf="isLoggedIn">{{ loginResponse.token }}</div>
