@@ -14,4 +14,9 @@ export class AccountService {
     const url = `${this.apiUrl}/auth/login`;
     return this.http.post(url, loginData);
   }
+
+  onSignup(registerData: any) {
+    const url = `${this.apiUrl}/auth/register`;
+    return this.http.post(url, registerData);
+  }
 }

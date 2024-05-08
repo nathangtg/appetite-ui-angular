@@ -1,0 +1,59 @@
+<div class="max-w-md mx-auto mt-8">
+  <h2 class="text-2xl font-semibold mb-4 text-center">Create Account</h2>
+  <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="space-y-4">
+    <div>
+      <label for="name" class="block mb-1">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="registerData.name"
+        required
+        class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label for="email" class="block mb-1">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="registerData.email"
+        required
+        class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label for="password" class="block mb-1">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="registerData.password"
+        required
+        class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label for="confirmPassword" class="block mb-1">Confirm Password</label>
+      <input
+        type="password"
+        id="password_confirmation"
+        name="password_confirmation"
+        [(ngModel)]="registerData.password_confirmation"
+        required
+        class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+      />
+      <div *ngIf="registrationError" class="text-red-500">
+        {{ registrationError }}
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="!createForm.form.valid || isLoading"
+      class="w-full bg-blue-500 text-white py-2 px-4 rounded disabled:opacity-50 disabled:pointer-events-none"
+    >
+      Create Account
+    </button>
+  </form>
+</div>
