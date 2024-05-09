@@ -4,7 +4,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
-        <a href="#" class="text-white font-bold text-lg">Appetite UI</a>
+        <a href="#" class="text-white font-bold text-lg">Appetite Connect</a>
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
@@ -12,7 +12,19 @@
             >Restaurants</a
           >
           <a href="#" class="text-white hover:text-yellow-300">Orders</a>
-          <a href="#" class="text-white hover:text-yellow-300">Profile</a>
+          <button
+            (click)="getInformation()"
+            class="text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Contact
+          </button>
+
+          <a
+            *ngIf="!isLoggedIn"
+            href="#"
+            class="text-white hover:text-yellow-300"
+            >Login</a
+          >
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
@@ -56,11 +68,12 @@
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
         >About</a
       >
-      <a
-        href="#"
+      <button
+        (click)="(getInformation)"
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Contact</a
       >
+        Contact
+      </button>
     </div>
   </div>
 </nav>

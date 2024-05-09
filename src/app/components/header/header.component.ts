@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
+import { AccountService } from '../../services/account/account.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,31 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 export class HeaderComponent {
   isNavbarOpen = false;
 
+  constructor(private accountService: AccountService) {}
+
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
+  }
+
+  isLoggedIn() {
+    if (localStorage.getItem('token')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  getInformation() {
+    console.log('Getting profile data...');
+
+    this.accountService.getProfile().subscribe(
+      (response: any) => {
+        console.log('Profile Data:', response);
+        // You can process the response data here
+      },
+      (error) => {
+        console.error('Error fetching profile data:', error);
+        // Handle error scenario here
+      }
+    );
   }
 }
