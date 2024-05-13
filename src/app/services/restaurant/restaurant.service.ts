@@ -9,7 +9,7 @@ export class RestaurantService {
   constructor(private http: HttpClient) {}
 
   apiUrl: string = environment.apiUrl;
-  restaurantId: number = 0; // Add a property to store the restaurant ID
+  restaurantId: number = 0;
 
   getRestaurants() {
     const url = `${this.apiUrl}/restaurants`;

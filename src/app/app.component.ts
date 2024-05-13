@@ -11,7 +11,19 @@ import { HeaderComponent } from './components/header/header.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  constructor() {}
+
   title: string = 'appetite-ui-angular';
   description: string =
     'This is a simple Angular application that demonstrates the use of the Appetite UI components.';
+
+  restaurant = {
+    name: 'The Golden Apple',
+    description:
+      'The Golden Apple is a family-owned restaurant that serves delicious food in a warm and inviting atmosphere.',
+    cuisine: 'American',
+    preparationTime: '30',
+    priceRange: '$$',
+    className: 'restaurant-card',
+  };
 }

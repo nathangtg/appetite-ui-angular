@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-restaurant-card',
@@ -10,9 +10,10 @@ import { Component } from '@angular/core';
 export class RestaurantCardComponent {
   constructor() {}
 
-  restaurantName: string = 'Restaurant Name';
-  description: string = 'This is a restaurant card component';
-  cuisine: string = 'Cuisine';
-  preparation_time: string = 'Preparation Time';
-  price_range: string = 'Price Range';
+  @Input() restaurantName: string = '';
+  @Input() description: string = '';
+  @Input() cuisine: string = '';
+  @Input() preparationTime: string = '';
+  @Input() priceRange: string = '';
+  @Input() className: string = '';
 }

@@ -1,2 +1,11 @@
 <app-header />
+<app-restaurant-card
+  [restaurantName]="restaurant.name"
+  [description]="restaurant.description"
+  [cuisine]="restaurant.cuisine"
+  [preparationTime]="restaurant.preparationTime"
+  [priceRange]="restaurant.priceRange"
+  [className]="restaurant.className"
+></app-restaurant-card>
+
 <router-outlet />
