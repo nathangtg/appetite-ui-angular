@@ -1,0 +1,4 @@
+<p>Restaurant ID: {{ restaurantId }}</p>
+<div *ngFor="let menuItem of menuItems">
+  <app-menu-card [menu]="menuItem"></app-menu-card>
+</div>

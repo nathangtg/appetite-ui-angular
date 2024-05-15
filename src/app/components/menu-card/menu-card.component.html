@@ -1,0 +1,84 @@
+<div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+  <div class="flex items-center p-4">
+    <div class="w-1/4">
+      <img
+        class="w-full h-auto rounded-lg"
+        [src]="menu.image"
+        alt="Card image cap"
+      />
+    </div>
+    <div class="w-3/4 pl-4 flex flex-col justify-between">
+      <div>
+        <h5 class="text-lg font-bold">{{ menu.name }}</h5>
+        <p class="text-gray-600 text-sm mb-2">{{ menu.description }}</p>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="text-lg font-bold text-gray-800">{{ menu.price }}</p>
+        <div *ngIf="quantity > 0" class="flex items-center space-x-2">
+          <button
+            class="bg-gray-200 text-gray-600 p-2 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"
+            (click)="decreaseQuantity()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20 12H4"
+              />
+            </svg>
+          </button>
+          <span class="text-lg">{{ quantity }}</span>
+          <button
+            class="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            (click)="increaseQuantity()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
+        </div>
+        <div *ngIf="quantity === 0">
+          <button
+            class="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            (click)="addToCart()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="getQuantity()">PRESS</button>
+</div>
