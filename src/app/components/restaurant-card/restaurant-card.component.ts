@@ -10,10 +10,5 @@ import { Component, Input } from '@angular/core';
 export class RestaurantCardComponent {
   constructor() {}
 
-  @Input() restaurantName: string = '';
-  @Input() description: string = '';
-  @Input() cuisine: string = '';
-  @Input() preparationTime: string = '';
-  @Input() priceRange: string = '';
-  @Input() className: string = '';
+  @Input() restaurant: any = {};
 }

@@ -1,11 +1,8 @@
-<app-header />
-<app-restaurant-card
-  [restaurantName]="restaurant.name"
-  [description]="restaurant.description"
-  [cuisine]="restaurant.cuisine"
-  [preparationTime]="restaurant.preparationTime"
-  [priceRange]="restaurant.priceRange"
-  [className]="restaurant.className"
-></app-restaurant-card>
-
-<router-outlet />
+<!-- app.component.html -->
+<app-header></app-header>
+test
+<div *ngFor="let restaurant of restaurants">
+  test
+  <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
+</div>
+<router-outlet></router-outlet>
