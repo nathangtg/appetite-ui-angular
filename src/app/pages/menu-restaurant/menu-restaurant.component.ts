@@ -17,7 +17,7 @@ export class MenuRestaurantComponent {
     private route: ActivatedRoute
   ) {}
 
-  // Get restaurant ID from Route
+  // * Get restaurant ID from Route
   restaurantId = this.route.snapshot.paramMap.get('id');
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class MenuRestaurantComponent {
   menuItems: any[] = [];
 
   fetchMenuItems() {
-    const restaurantId = '1'; // Replace with the actual restaurant ID from the route
+    const restaurantId = '1'; // ! TODO: Replace with the actual restaurant ID from the route
     this.menuService.getMenuFromAPI(restaurantId).subscribe(
       (menu) => {
         this.menuItems = menu;
