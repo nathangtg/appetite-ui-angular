@@ -23,27 +23,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private restaurantService: RestaurantService,
-    private route: ActivatedRoute
-  ) {}
+  constructor() // private route: ActivatedRoute // private restaurantService: RestaurantService,
+  {}
 
-  ngOnInit() {
-    this.fetchRestaurants();
-    console.log('Restaurants', this.restaurants);
-  }
-
-  restaurants: any[] = [];
-
-  fetchRestaurants() {
-    this.restaurantService.getRestaurantsFromAPI().subscribe(
-      (restaurants) => {
-        this.restaurants = restaurants;
-        console.log(this.restaurants); // Log restaurants after they are fetched
-      },
-      (error) => {
-        console.error('Error fetching restaurants:', error);
-      }
-    );
-  }
+  ngOnInit() {}
 }

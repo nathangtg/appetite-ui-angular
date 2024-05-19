@@ -36,4 +36,8 @@ export class AccountService {
     const options = { headers };
     return this.http.get(url, options);
   }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
 }

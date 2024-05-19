@@ -20,8 +20,12 @@ export class HeaderComponent {
   }
 
   isLoggedIn() {
-    return !!localStorage.getItem('token');
+    return this.accountService.isLoggedIn();
   }
+
+  // isLoggedIn() {
+  //   return !!localStorage.getItem('token');
+  // }
 
   getInformation() {
     console.log('Getting profile data...');
