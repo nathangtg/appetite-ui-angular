@@ -20,12 +20,9 @@ export class HeaderComponent {
   }
 
   isLoggedIn() {
-    if (localStorage.getItem('token')) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!localStorage.getItem('token');
   }
+
   getInformation() {
     console.log('Getting profile data...');
 
@@ -39,5 +36,9 @@ export class HeaderComponent {
         // Handle error scenario here
       }
     );
+  }
+
+  onLogout() {
+    this.accountService.onLogout();
   }
 }

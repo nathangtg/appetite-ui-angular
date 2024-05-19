@@ -1,5 +1,3 @@
-<!-- app.component.html -->
-
 <nav class="bg-black">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
@@ -8,7 +6,7 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
-          <a href="/restaurants" class="text-white hover:text-yellow-300"
+          <a routerLink="/restaurants" class="text-white hover:text-yellow-300"
             >Restaurants</a
           >
           <a href="#" class="text-white hover:text-yellow-300">Orders</a>
@@ -18,13 +16,19 @@
           >
             Contact
           </button>
-
-          <a
-            *ngIf="!isLoggedIn"
-            href="#"
+          <button
+            *ngIf="!isLoggedIn()"
             class="text-white hover:text-yellow-300"
-            >Login</a
           >
+            Login
+          </button>
+          <button
+            *ngIf="isLoggedIn()"
+            class="text-white hover:text-yellow-300"
+            (click)="onLogout()"
+          >
+            Logout
+          </button>
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
@@ -34,7 +38,6 @@
           class="bg-primary-dark inline-flex items-center justify-center p-2 rounded-md text-white hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
           <span class="sr-only">Open main menu</span>
-          <!-- Heroicon name: menu -->
           <svg
             class="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -69,10 +72,23 @@
         >About</a
       >
       <button
-        (click)="(getInformation)"
+        (click)="getInformation()"
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
       >
         Contact
+      </button>
+      <button
+        *ngIf="!isLoggedIn()"
+        ="class"
+        ="text-white block px-3 py-2 rounded-md text-base font-medium"
+      >
+        Login
+      </button>
+      <button
+        *ngIf="isLoggedIn()"
+        class="text-white block px-3 py-2 rounded-md text-base font-medium"
+      >
+        Logout
       </button>
     </div>
   </div>

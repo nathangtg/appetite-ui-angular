@@ -68,11 +68,10 @@ export class LoginComponent {
   }
 
   isLoggedIn() {
-    if (localStorage.getItem('token')) {
-      return true;
-    } else {
-      return false;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return window.localStorage.getItem('token') !== null;
     }
+    return false;
   }
 
   onLogout() {
