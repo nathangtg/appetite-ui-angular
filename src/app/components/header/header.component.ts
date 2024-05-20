@@ -45,4 +45,8 @@ export class HeaderComponent {
   onLogout() {
     this.accountService.onLogout();
   }
+
+  redirectToLogin() {
+    this.accountService.redirectToLogin();
+  }
 }

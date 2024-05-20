@@ -40,4 +40,8 @@ export class AccountService {
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }
+
+  redirectToLogin() {
+    window.location.href = 'auth/login';
+  }
 }

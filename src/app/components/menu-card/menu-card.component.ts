@@ -19,6 +19,8 @@ export class MenuCardComponent {
   //   description: 'A delicious burger with cheese and veggies.',
   // };
 
+  constructor() {}
+
   @Input() menu: any = {};
 
   increaseQuantity() {

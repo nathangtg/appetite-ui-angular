@@ -12,12 +12,13 @@
           <a href="#" class="text-white hover:text-yellow-300">Orders</a>
           <button
             (click)="getInformation()"
-            class="text-white block px-3 py-2 rounded-md text-base font-medium"
+            class="text-white hover:text-yellow-300"
           >
             Contact
           </button>
           <button
             *ngIf="!isLoggedIn()"
+            (click)="redirectToLogin()"
             class="text-white hover:text-yellow-300"
           >
             Login

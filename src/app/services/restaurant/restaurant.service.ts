@@ -23,4 +23,8 @@ export class RestaurantService {
     const url = `${this.apiUrl}/restaurants/${this.restaurantId}`;
     return this.http.get(url);
   }
+
+  redirectToSpecific() {
+    window.location.href = `restaurants/${this.restaurantId}`;
+  }
 }

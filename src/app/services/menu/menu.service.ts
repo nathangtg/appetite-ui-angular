@@ -11,9 +11,23 @@ export class MenuService {
 
   apiUrl = environment.apiUrl;
 
-  getMenuFromAPI(restaurantId: string): Observable<any[]> {
-    return this.http
-      .get<{ menus: any[] }>(`${this.apiUrl}/menus/${restaurantId}`)
-      .pipe(map((response) => response.menus));
+  // getMenuFromAPI(restaurantId: string): Observable<any[]> {
+  //   return this.http
+  //     .get<{ menus: any[] }>(`${this.apiUrl}/menus/${restaurantId}`)
+  //     .pipe(map((response) => response.menus));
+  // }
+
+  getMenuFromAPI(
+    restaurantId: string
+  ): Observable<{ name: string; menus: any[] }> {
+    return this.http.get<{ name: string; menus: any[] }>(
+      `${this.apiUrl}/menus/${restaurantId}`
+    );
+  }
+
+  getRestaurantFromAPI(restaurantId: string): Observable<any> {
+    return this.http.get<{ name: string; menus: any[] }>(
+      `${this.apiUrl}/restaurants/${restaurantId}`
+    );
   }
 }

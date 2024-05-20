@@ -11,4 +11,9 @@ export class RestaurantCardComponent {
   constructor() {}
 
   @Input() restaurant: any = {};
+
+  redirectToPage() {
+    console.log('Redirecting to restaurant page...');
+    window.location.href = `restaurants/${this.restaurant.id}`;
+  }
 }
