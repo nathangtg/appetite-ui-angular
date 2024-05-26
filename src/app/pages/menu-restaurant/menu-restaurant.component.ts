@@ -43,6 +43,12 @@ export class MenuRestaurantComponent implements OnInit {
     }
   }
 
+  getItemsGreaterThanZero() {
+    console.log('Getting items greater than zero');
+    console.log(this.menuItems.filter((item) => item.quantity > 0));
+    return this.menuItems.filter((item) => item.quantity > 0);
+  }
+
   fetchRestaurantInformation() {
     console.log(this.restaurantName);
     if (this.restaurantId) {

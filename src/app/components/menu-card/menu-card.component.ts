@@ -52,6 +52,8 @@ export class MenuCardComponent {
   getQuantity() {
     console.log('Printing quantity:');
     console.log(`Quantity: ${this.quantity}`);
+    console.log('Printing menu object:');
+    console.log(JSON.stringify(this.menu, null, 2));
     return this.quantity;
   }
 }
