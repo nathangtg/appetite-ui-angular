@@ -68,7 +68,7 @@ export class MenuRestaurantComponent implements OnInit {
           this.restaurantCuisine = response.cuisine;
           this.restaurantPriceRange = response.price_range;
           this.restaurantAddress = response.address;
-          this.restaurantImage = response.image;
+          this.restaurantImage = response.image_path;
           this.restaurantPreparationTime = response.preparation_time;
         },
         (error) => {
@@ -100,5 +100,9 @@ export class MenuRestaurantComponent implements OnInit {
     if (cart) {
       cart.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  hasItemsInCart(): boolean {
+    return this.menuItems.some((item) => item.quantity > 0);
   }
 }
