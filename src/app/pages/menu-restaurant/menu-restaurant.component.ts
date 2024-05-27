@@ -16,7 +16,15 @@ import { error } from 'console';
 export class MenuRestaurantComponent implements OnInit {
   restaurantId: string | null = null;
   restaurantName: string | null = null;
+  restaurantDescription: string | null = null;
+  restaurantPriceRange: string | null = null;
+  restaurantCuisine: string | null = null;
+  restaurantAddress: string | null = null;
+  restaurantImage: string | null = null;
+  restaurantPreparationTime: string | null = null;
+
   menuItems: any[] = [];
+  itemsWithQuantity: any[] = [];
 
   constructor(private menuService: MenuService, private route: ActivatedRoute) {
     this.restaurantId = this.route.snapshot.paramMap.get('id');
@@ -41,6 +49,7 @@ export class MenuRestaurantComponent implements OnInit {
     } else {
       console.error('Restaurant ID not found in route');
     }
+    console.log('Menu Items:', this.menuItems);
   }
 
   getItemsGreaterThanZero() {
@@ -55,6 +64,12 @@ export class MenuRestaurantComponent implements OnInit {
       this.menuService.getRestaurantFromAPI(this.restaurantId).subscribe(
         (response) => {
           this.restaurantName = response.name;
+          this.restaurantDescription = response.description;
+          this.restaurantCuisine = response.cuisine;
+          this.restaurantPriceRange = response.price_range;
+          this.restaurantAddress = response.address;
+          this.restaurantImage = response.image;
+          this.restaurantPreparationTime = response.preparation_time;
         },
         (error) => {
           console.log('Error', error);
@@ -62,6 +77,28 @@ export class MenuRestaurantComponent implements OnInit {
       );
     } else {
       console.error('Restaurant ID not found');
+    }
+  }
+
+  handleQuantityChange(updatedMenu: any) {
+    const index = this.menuItems.findIndex(
+      (item) => item.id === updatedMenu.id
+    );
+    if (index !== -1) {
+      this.menuItems[index] = updatedMenu;
+    }
+  }
+
+  getOrderedItems() {
+    console.log('Getting ordered items');
+    console.log(this.menuItems.filter((item) => item.quantity > 0));
+    return this.menuItems.filter((item) => item.quantity > 0);
+  }
+
+  scrollToCart() {
+    const cart = document.getElementById('cart');
+    if (cart) {
+      cart.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

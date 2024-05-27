@@ -34,8 +34,13 @@ export class MenuService {
   }
 
   getRestaurantFromAPI(restaurantId: string): Observable<any> {
-    return this.http.get<{ name: string; menus: any[] }>(
-      `${this.apiUrl}/restaurants/${restaurantId}`
-    );
+    return this.http.get<{
+      name: string;
+      menus: any[];
+      description: string;
+      price_range: string;
+      cuisine: string;
+      address: string;
+    }>(`${this.apiUrl}/restaurants/${restaurantId}`);
   }
 }

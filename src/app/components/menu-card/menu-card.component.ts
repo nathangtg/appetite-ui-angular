@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-menu-card',
@@ -9,8 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './menu-card.component.css',
 })
 export class MenuCardComponent {
-  quantity: number = 0;
-
   // ! Debugging data only
   // @Input() menu = {
   //   name: 'Burger',
@@ -22,10 +20,14 @@ export class MenuCardComponent {
   constructor() {}
 
   @Input() menu: any = {};
+  @Input() quantity: number = 0;
+  @Output() quantityChange = new EventEmitter<any>();
 
   increaseQuantity() {
+    console.log('Increasing quantity:', this.quantity);
     this.quantity++;
-    console.log(`Increased quantity of ${this.menu.name} to ${this.quantity}.`);
+    this.quantityChange.emit({ ...this.menu, quantity: this.quantity });
+    this.getQuantity();
   }
 
   decreaseQuantity() {
@@ -34,26 +36,25 @@ export class MenuCardComponent {
     } else {
       this.quantity = 0;
     }
+    this.quantityChange.emit({ ...this.menu, quantity: this.quantity });
   }
 
   addToCart() {
     this.quantity += 1;
-    console.log(`Added ${this.quantity} of ${this.menu.name} to cart.`);
+    this.quantityChange.emit({ ...this.menu, quantity: this.quantity });
   }
 
   removeFromCart() {
     if (this.quantity > 0) {
       this.quantity--;
-      console.log(`Removed ${this.menu.name} from cart.`);
     }
+    this.quantityChange.emit({ ...this.menu, quantity: this.quantity });
   }
 
-  // ! Debugging purposes only
   getQuantity() {
-    console.log('Printing quantity:');
-    console.log(`Quantity: ${this.quantity}`);
-    console.log('Printing menu object:');
-    console.log(JSON.stringify(this.menu, null, 2));
+    console.log('Getting quantity:', this.quantity);
+    console.log('Menu ID:', this.menu.id);
+    console.log('Menu Name:', this.menu.name);
     return this.quantity;
   }
 }
