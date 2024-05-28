@@ -3,11 +3,18 @@ import { RestaurantCardComponent } from '../../components/restaurant-card/restau
 import { HeaderComponent } from '../../components/header/header.component';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { CommonModule, NgFor } from '@angular/common';
+import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-restaurants',
   standalone: true,
-  imports: [RestaurantCardComponent, HeaderComponent, NgFor, CommonModule],
+  imports: [
+    RestaurantCardComponent,
+    HeaderComponent,
+    NgFor,
+    CommonModule,
+    SearchBarComponent,
+  ],
   templateUrl: './restaurants.component.html',
   styleUrl: './restaurants.component.css',
 })
@@ -16,10 +23,12 @@ export class RestaurantsComponent {
 
   ngOnInit() {
     this.fetchRestaurants();
+    this.onSearch('');
     console.log('Restaurants', this.restaurants);
   }
 
   restaurants: any[] = [];
+  filteredRestaurants = [...this.restaurants];
 
   fetchRestaurants() {
     this.restaurantService.getRestaurantsFromAPI().subscribe(
@@ -31,5 +40,15 @@ export class RestaurantsComponent {
         console.error('Error fetching restaurants:', error);
       }
     );
+  }
+
+  onSearch(searchTerm: string) {
+    if (searchTerm) {
+      this.filteredRestaurants = this.restaurants.filter((restaurant) =>
+        restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredRestaurants = [...this.restaurants];
+    }
   }
 }

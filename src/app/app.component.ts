@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { NgFor, CommonModule } from '@angular/common';
+
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
