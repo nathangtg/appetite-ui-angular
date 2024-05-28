@@ -1,0 +1,19 @@
+<!-- Cart Section -->
+<div id="cart" class="mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Cart</h2>
+  <ng-container *ngIf="hasItemsInCart(); else emptyCart">
+    <ng-container *ngFor="let item of menuItems">
+      <app-menu-card
+        [menu]="item"
+        [quantity]="item.quantity"
+        (quantityChange)="handleQuantityChange($event)"
+        *ngIf="item.quantity >= 1"
+        class="bg-white rounded-lg shadow-md overflow-hidden mb-4"
+      >
+      </app-menu-card>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyCart>
+    <div class="text-center text-gray-500">Your cart is empty</div>
+  </ng-template>
+</div>

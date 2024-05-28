@@ -5,11 +5,27 @@ import { MenuCardComponent } from '../../components/menu-card/menu-card.componen
 import { NgFor, NgIf } from '@angular/common';
 import { response } from 'express';
 import { error } from 'console';
+import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
+import { HomeRestaurantBreadcrumbComponent } from '../../components/home-restaurant-breadcrumb/home-restaurant-breadcrumb.component';
+import { MenuSectionComponent } from '../../components/menu-section/menu-section.component';
+import { CartSectionComponent } from '../../components/cart-section/cart-section.component';
+import { CartButtonComponent } from '../../components/cart-button/cart-button.component';
+import { OrderButtonComponent } from '../../components/order-button/order-button.component';
 
 @Component({
   selector: 'app-menu-restaurant',
   standalone: true,
-  imports: [MenuCardComponent, NgFor, NgIf],
+  imports: [
+    MenuCardComponent,
+    NgFor,
+    NgIf,
+    RestaurantHeaderBoxComponent,
+    HomeRestaurantBreadcrumbComponent,
+    MenuSectionComponent,
+    CartSectionComponent,
+    CartButtonComponent,
+    OrderButtonComponent,
+  ],
   templateUrl: './menu-restaurant.component.html',
   styleUrls: ['./menu-restaurant.component.css'],
 })
@@ -93,13 +109,6 @@ export class MenuRestaurantComponent implements OnInit {
     console.log('Getting ordered items');
     console.log(this.menuItems.filter((item) => item.quantity > 0));
     return this.menuItems.filter((item) => item.quantity > 0);
-  }
-
-  scrollToCart() {
-    const cart = document.getElementById('cart');
-    if (cart) {
-      cart.scrollIntoView({ behavior: 'smooth' });
-    }
   }
 
   hasItemsInCart(): boolean {
