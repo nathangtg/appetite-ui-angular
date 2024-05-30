@@ -1,2 +1,101 @@
-<p>{{ restaurant?.name }}</p>
-<p>Test</p>
+<div *ngIf="restaurant" class="restaurant-details p-4">
+  <h2 class="text-2xl font-bold mb-4">Edit Restaurant Details</h2>
+  <!-- Display Original Image -->
+  <div *ngIf="restaurant.image_path" class="mb-4">
+    <img
+      [src]="restaurant.image_path"
+      alt="Original Restaurant Image"
+      class="mb-2 rounded"
+    />
+    <p class="text-gray-600">Original Image</p>
+  </div>
+  <div class="mb-4">
+    <label for="name" class="block">Name:</label>
+    <input
+      type="text"
+      id="name"
+      [(ngModel)]="restaurant.name"
+      class="w-full border rounded py-2 px-3"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="address" class="block">Address:</label>
+    <input
+      type="text"
+      id="address"
+      [(ngModel)]="restaurant.address"
+      class="w-full border rounded py-2 px-3"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="cuisine" class="block">Cuisine:</label>
+    <input
+      type="text"
+      id="cuisine"
+      [(ngModel)]="restaurant.cuisine"
+      class="w-full border rounded py-2 px-3"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="description" class="block">Description:</label>
+    <textarea
+      id="description"
+      [(ngModel)]="restaurant.description"
+      class="w-full border rounded py-2 px-3"
+    ></textarea>
+  </div>
+  <div class="mb-4">
+    <label for="preparation_time" class="block"
+      >Preparation Time (minutes):</label
+    >
+    <input
+      type="number"
+      id="preparation_time"
+      [(ngModel)]="restaurant.preparation_time"
+      class="w-full border rounded py-2 px-3"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="price_range" class="block">Price Range:</label>
+    <input
+      type="text"
+      id="price_range"
+      [(ngModel)]="restaurant.price_range"
+      class="w-full border rounded py-2 px-3"
+    />
+  </div>
+  <!-- Image Input -->
+  <div class="mb-4">
+    <label for="image" class="block">New Image:</label>
+    <input
+      type="file"
+      id="image"
+      accept="image/*"
+      (change)="onImageChange($event)"
+      class="w-full border rounded py-2 px-3"
+    />
+    <div *ngIf="imagePreview" class="mt-2">
+      <img
+        [src]="imagePreview"
+        alt="Restaurant Image"
+        class="w-32 h-32 rounded"
+      />
+    </div>
+    <!-- Button to submit the new image -->
+    <button
+      (click)="submitImage()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
+    >
+      Save Image
+    </button>
+  </div>
+  <!-- Button to save changes -->
+  <button
+    (click)="saveChanges()"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Save Changes
+  </button>
+</div>
+
+<div *ngIf="!restaurant" class="loading p-4">Loading...</div>

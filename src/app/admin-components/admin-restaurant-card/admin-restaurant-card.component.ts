@@ -1,7 +1,9 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Restaurant {
+  id: number;
   name: string;
   address: string;
   image_path: string;
@@ -20,4 +22,12 @@ interface Restaurant {
 })
 export class AdminRestaurantCardComponent {
   @Input() restaurant!: Restaurant;
+
+  constructor(private router: Router) {}
+
+  redirectToSpecificRestaurant() {
+    console.log('Redirecting to restaurant with ID:', this.restaurant.id);
+    // Implement the navigation logic here
+    this.router.navigate(['admin/dashboard', this.restaurant.id]);
+  }
 }

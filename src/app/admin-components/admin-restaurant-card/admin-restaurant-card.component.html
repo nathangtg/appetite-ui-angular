@@ -1,4 +1,7 @@
-<div class="bg-white p-6 rounded-lg shadow-md">
+<div
+  class="bg-white p-6 rounded-lg shadow-md"
+  (click)="redirectToSpecificRestaurant()"
+>
   <img
     [src]="restaurant.image_path"
     alt="{{ restaurant.name }}"

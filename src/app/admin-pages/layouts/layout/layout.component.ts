@@ -1,4 +1,4 @@
-import { ThemeService } from './../../services/theme.service';
+import { ThemeService } from './../../../services/theme.service';
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -29,9 +29,9 @@ export class AdminLayoutComponent {
     const prefersDarkScheme = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-    if (this.themeService.currentMode || prefersDarkScheme) {
-      document.documentElement.classList.add('dark');
-    }
+    // if (this.themeService.currentMode || prefersDarkScheme) {
+    //   document.documentElement.classList.add('dark');
+    // }
   }
 
   toggleSidebar() {

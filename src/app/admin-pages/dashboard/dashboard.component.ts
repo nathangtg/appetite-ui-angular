@@ -1,7 +1,7 @@
 import { RestaurantService } from './../../services/restaurant/restaurant.service';
 import { Component } from '@angular/core';
-import { AdminLayoutComponent } from '../layout/layout.component';
-import { NgFor } from '@angular/common';
+import { AdminLayoutComponent } from '../layouts/layout/layout.component';
+import { NgFor, NgIf } from '@angular/common';
 import { AdminRestaurantCardComponent } from '../../admin-components/admin-restaurant-card/admin-restaurant-card.component';
 
 interface Restaurant {
@@ -18,7 +18,7 @@ interface Restaurant {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [AdminLayoutComponent, NgFor, AdminRestaurantCardComponent],
+  imports: [AdminLayoutComponent, NgFor, AdminRestaurantCardComponent, NgIf],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -32,5 +32,9 @@ export class DashboardComponent {
       console.log('Restaurants:', response);
       this.restaurants = response;
     });
+  }
+
+  redirectToCreateRestaurant(): void {
+    window.location.href = '/admin/create-restaurant';
   }
 }

@@ -4,9 +4,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RestaurantsComponent } from './pages/restaurants/restaurants.component';
 import { MenuRestaurantComponent } from './pages/menu-restaurant/menu-restaurant.component';
 import { DashboardComponent } from './admin-pages/dashboard/dashboard.component';
-import { AdminLayoutComponent } from './admin-pages/layout/layout.component';
 import { UserLayoutComponent } from '../app/pages/layout/layout.component';
 import { DashboardIdComponent } from './admin-pages/dashboard-id/dashboard-id.component';
+import { AdminLayoutComponent } from './admin-pages/layouts/layout/layout.component';
+import { CreateRestaurantComponent } from './admin-pages/create-restaurant/create-restaurant.component';
 
 export const routes: Routes = [
   {
@@ -23,13 +24,15 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-      { path: 'dashboard/:id', component: DashboardIdComponent },
-    ],
+    children: [{ path: 'dashboard/:id', component: DashboardIdComponent }],
+  },
+  {
+    path: 'admin/create-restaurant',
+    component: CreateRestaurantComponent,
+  },
+  {
+    path: 'admin/dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'restaurants/:id',
