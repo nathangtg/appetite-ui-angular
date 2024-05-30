@@ -1,0 +1,10 @@
+<div>
+  <h2 class="text-2xl font-semibold text-gray-700">Your Restaurants</h2>
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <app-admin-restaurant-card
+      *ngFor="let restaurant of restaurants"
+      [restaurant]="restaurant"
+    ></app-admin-restaurant-card>
+    <p>Test</p>
+  </div>
+</div>

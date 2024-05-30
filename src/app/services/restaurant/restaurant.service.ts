@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
 
@@ -12,6 +12,7 @@ export class RestaurantService {
   apiUrl: string = environment.apiUrl;
   restaurantId: number = 0;
 
+  // ! User Services
   getRestaurantsFromAPI() {
     return this.http.get<any>(`${this.apiUrl}/restaurants`).pipe(
       tap((response) => console.log('API Response:', response)), // Log the entire response object
@@ -26,5 +27,34 @@ export class RestaurantService {
 
   redirectToSpecific() {
     window.location.href = `restaurants/${this.restaurantId}`;
+  }
+
+  // ! Admin Services
+  getRestaurantsForAdmin() {
+    // Pass in authorization bearer
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http
+      .get<any>(`${this.apiUrl}/admin/restaurants`, { headers })
+      .pipe(
+        tap((response) => console.log('API Response:', response)),
+        map((response) => response)
+      );
+  }
+
+  getSpecificRestaurantForAdmin(restaurantId: number) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const url = `${this.apiUrl}/admin/restaurants/${this.restaurantId}`;
+
+    return this.http.get(url, { headers });
   }
 }
