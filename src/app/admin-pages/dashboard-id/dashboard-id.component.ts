@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { TextInputFieldComponent } from '../../components/text-input-field/text-input-field.component';
 import { TextAreaFieldComponent } from '../../components/text-area-field/text-area-field.component';
+import { ImageUploadComponent } from '../../components/image-upload/image-upload.component';
 
 interface Restaurant {
   id: number;
@@ -20,7 +21,13 @@ interface Restaurant {
 @Component({
   selector: 'app-dashboard-id',
   standalone: true,
-  imports: [NgIf, FormsModule, TextInputFieldComponent, TextAreaFieldComponent],
+  imports: [
+    NgIf,
+    FormsModule,
+    TextInputFieldComponent,
+    TextAreaFieldComponent,
+    ImageUploadComponent,
+  ],
   templateUrl: './dashboard-id.component.html',
   styleUrl: './dashboard-id.component.css',
 })
