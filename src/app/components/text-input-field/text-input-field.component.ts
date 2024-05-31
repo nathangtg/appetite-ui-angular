@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class TextInputFieldComponent {
   @Input() name: string = 'name';
   @Input() label: string = 'Label not declared';
-  @Input() value: string = '';
+  @Input() value: string | number = '';
   @Output() valueChange = new EventEmitter<string>();
 
   onValueChange(value: string) {

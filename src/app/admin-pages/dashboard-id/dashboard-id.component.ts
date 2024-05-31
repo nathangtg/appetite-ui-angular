@@ -3,6 +3,8 @@ import { RestaurantService } from '../../services/restaurant/restaurant.service'
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { TextInputFieldComponent } from '../../components/text-input-field/text-input-field.component';
+import { TextAreaFieldComponent } from '../../components/text-area-field/text-area-field.component';
 
 interface Restaurant {
   id: number;
@@ -18,7 +20,7 @@ interface Restaurant {
 @Component({
   selector: 'app-dashboard-id',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, FormsModule, TextInputFieldComponent, TextAreaFieldComponent],
   templateUrl: './dashboard-id.component.html',
   styleUrl: './dashboard-id.component.css',
 })
