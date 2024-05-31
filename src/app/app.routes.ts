@@ -24,15 +24,17 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    children: [{ path: 'dashboard/:id', component: DashboardIdComponent }],
-  },
-  {
-    path: 'admin/create-restaurant',
-    component: CreateRestaurantComponent,
-  },
-  {
-    path: 'admin/dashboard',
-    component: DashboardComponent,
+    children: [
+      { path: 'dashboard/:id', component: DashboardIdComponent },
+      {
+        path: 'create-restaurant',
+        component: CreateRestaurantComponent,
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+    ],
   },
   {
     path: 'restaurants/:id',

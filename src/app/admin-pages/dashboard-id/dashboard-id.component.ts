@@ -58,13 +58,18 @@ export class DashboardIdComponent {
   }
 
   saveChanges() {
+    this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
+
     if (this.restaurant) {
       console.log('Saving changes to restaurant details...');
       console.log(this.restaurant);
-      // this.restaurantService.updateRestaurant(this.restaurant).subscribe(() => {
-      //   // Optionally, you can provide some feedback to the admin here
-      //   console.log('Restaurant details updated successfully!');
-      // });
+
+      // Create a copy of the restaurant object without the image_path property
+      const { image_path, ...restaurantWithoutImagePath } = this.restaurant;
+
+      this.restaurantService
+        .editRestaurant(restaurantWithoutImagePath, this.restaurantId)
+        .subscribe();
     }
   }
 }

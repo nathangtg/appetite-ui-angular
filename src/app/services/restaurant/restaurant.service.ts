@@ -70,15 +70,17 @@ export class RestaurantService {
     });
   }
 
-  editRestaurant(restaurant: any) {
+  editRestaurant(restaurant: any, restaurantId: number) {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
+    this.restaurantId = restaurantId;
+
     return this.http.put(
-      `${this.apiUrl}/edit/restaurants/${this.restaurantId}`,
+      `${this.apiUrl}/update/restaurants/${this.restaurantId}`,
       restaurant,
       { headers }
     );
