@@ -57,4 +57,30 @@ export class RestaurantService {
 
     return this.http.get(url, { headers });
   }
+
+  createRestaurant(restaurant: any) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.apiUrl}/create/restaurants`, restaurant, {
+      headers,
+    });
+  }
+
+  editRestaurant(restaurant: any) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.put(
+      `${this.apiUrl}/edit/restaurants/${this.restaurantId}`,
+      restaurant,
+      { headers }
+    );
+  }
 }

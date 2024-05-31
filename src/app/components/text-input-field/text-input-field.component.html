@@ -1,0 +1,12 @@
+<div class="mb-4">
+  <label for="{{ label }}" class="block">{{ label }}:</label>
+  <input
+    type="text"
+    id="{{ label }}"
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange($event)"
+    name="{{ label }}"
+    class="w-full border rounded py-2 px-3"
+    required
+  />
+</div>
