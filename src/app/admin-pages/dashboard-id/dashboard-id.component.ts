@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TextInputFieldComponent } from '../../components/text-input-field/text-input-field.component';
 import { TextAreaFieldComponent } from '../../components/text-area-field/text-area-field.component';
 import { ImageUploadComponent } from '../../components/image-upload/image-upload.component';
+import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
+import { ActionButtonComponent } from '../../components/action-button/action-button.component';
 
 interface Restaurant {
   id: number;
@@ -15,7 +17,7 @@ interface Restaurant {
   description: string;
   image_path: string;
   preparation_time: number;
-  price_range: string;
+  price_range: number | string;
 }
 
 @Component({
@@ -27,6 +29,8 @@ interface Restaurant {
     TextInputFieldComponent,
     TextAreaFieldComponent,
     ImageUploadComponent,
+    RestaurantHeaderBoxComponent,
+    ActionButtonComponent,
   ],
   templateUrl: './dashboard-id.component.html',
   styleUrl: './dashboard-id.component.css',

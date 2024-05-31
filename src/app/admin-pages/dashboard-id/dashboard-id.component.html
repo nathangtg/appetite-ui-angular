@@ -1,14 +1,15 @@
 <div *ngIf="restaurant" class="restaurant-details p-4">
   <h2 class="text-2xl font-bold mb-4">Edit Restaurant Details</h2>
-  <!-- Display Original Image -->
-  <div *ngIf="restaurant.image_path" class="mb-4">
-    <img
-      [src]="restaurant.image_path"
-      alt="Original Restaurant Image"
-      class="mb-2 rounded"
-    />
-    <p class="text-gray-600">Original Image</p>
-  </div>
+
+  <app-restaurant-header-box
+    [restaurantName]="restaurant.name"
+    [restaurantDescription]="restaurant.description"
+    [restaurantPriceRange]="restaurant.price_range"
+    [restaurantCuisine]="restaurant.cuisine"
+    [restaurantAddress]="restaurant.address"
+    [restaurantImage]="restaurant.image_path"
+    [restaurantPreparationTime]="restaurant.preparation_time.toString()"
+  ></app-restaurant-header-box>
 
   <app-text-input-field label="Name" [(value)]="restaurant.name" required />
 
@@ -45,12 +46,10 @@
   <app-image-upload (imageChange)="onImageChange($event)"></app-image-upload>
 
   <!-- Button to save changes -->
-  <button
-    (click)="saveChanges()"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  >
-    Save Changes
-  </button>
+  <app-action-button
+    buttonText="Save Changes"
+    (buttonClick)="saveChanges()"
+  ></app-action-button>
 </div>
 
 <div *ngIf="!restaurant" class="loading p-4">Loading...</div>

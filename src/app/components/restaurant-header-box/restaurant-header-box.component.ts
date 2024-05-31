@@ -12,7 +12,7 @@ export class RestaurantHeaderBoxComponent {
   @Input() restaurantId: string | null = null;
   @Input() restaurantName: string | null = null;
   @Input() restaurantDescription: string | null = null;
-  @Input() restaurantPriceRange: string | null = null;
+  @Input() restaurantPriceRange: number | string | null = null;
   @Input() restaurantCuisine: string | null = null;
   @Input() restaurantAddress: string | null = null;
   @Input() restaurantImage: string | null = null;
