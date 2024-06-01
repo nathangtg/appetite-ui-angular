@@ -16,4 +16,17 @@ export class OrderService {
       .get<{ orders: any[] }>(`${this.apiUrl}/orders/${restaurantId}`)
       .pipe(map((response) => response.orders));
   }
+
+  getOrderByIdAPI(orderId: string, restaurantId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/orders/${restaurantId}/${orderId}`
+    );
+  }
+
+  createOrderAPI(order: any, restaurantId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/orders/${restaurantId}/create`,
+      order
+    );
+  }
 }
