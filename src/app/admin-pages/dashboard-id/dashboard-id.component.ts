@@ -111,4 +111,10 @@ export class DashboardIdComponent {
         .subscribe();
     }
   }
+
+  deleteRestaurant() {
+    this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
+
+    this.restaurantService.deleteRestaurant(this.restaurantId).subscribe();
+  }
 }
