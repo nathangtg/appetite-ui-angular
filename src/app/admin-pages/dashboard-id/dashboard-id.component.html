@@ -53,6 +53,11 @@
     buttonText="Save Changes"
     (buttonClick)="saveChanges()"
   ></app-action-button>
+
+  <app-action-button
+    buttonText="Delete Restaurant"
+    (buttonClick)="deleteRestaurant()"
+  />
 </div>
 
 <app-loading *ngIf="!restaurant"></app-loading>
