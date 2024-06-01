@@ -56,8 +56,10 @@
 
   <app-action-button
     buttonText="Delete Restaurant"
-    (buttonClick)="deleteRestaurant()"
-  />
+    buttonColor="red-500"
+    buttonHoverColor="red-700"
+    additionalClasses="my-4"
+  ></app-action-button>
 </div>
 
 <app-loading *ngIf="!restaurant"></app-loading>
