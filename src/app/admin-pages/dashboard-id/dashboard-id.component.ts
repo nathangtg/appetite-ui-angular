@@ -8,6 +8,7 @@ import { TextAreaFieldComponent } from '../../components/text-area-field/text-ar
 import { ImageUploadComponent } from '../../components/image-upload/image-upload.component';
 import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 interface Restaurant {
   id: number;
@@ -31,6 +32,7 @@ interface Restaurant {
     ImageUploadComponent,
     RestaurantHeaderBoxComponent,
     ActionButtonComponent,
+    LoadingComponent,
   ],
   templateUrl: './dashboard-id.component.html',
   styleUrl: './dashboard-id.component.css',

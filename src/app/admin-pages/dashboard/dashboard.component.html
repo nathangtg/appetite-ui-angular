@@ -1,5 +1,6 @@
 <div class="container mx-auto p-8">
   <h2 class="text-3xl font-semibold text-gray-800 mb-6">Your Restaurants</h2>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <ng-container
       *ngIf="restaurants && restaurants.length > 0; else noRestaurants"
@@ -14,10 +15,10 @@
       <p class="text-gray-600 text-lg">No restaurants found.</p>
     </ng-template>
   </div>
-  <button
-    (click)="redirectToCreateRestaurant()"
-    class="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md"
-  >
-    Add New Restaurant
-  </button>
+
+  <app-action-button
+    buttonText="Add New Restaurant"
+    (buttonClick)="redirectToCreateRestaurant()"
+    class="mt-6"
+  />
 </div>
