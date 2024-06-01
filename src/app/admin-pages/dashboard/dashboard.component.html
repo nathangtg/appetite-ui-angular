@@ -2,17 +2,22 @@
   <h2 class="text-3xl font-semibold text-gray-800 mb-6">Your Restaurants</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <ng-container
-      *ngIf="restaurants && restaurants.length > 0; else noRestaurants"
-    >
+    <ng-container *ngIf="restaurants; else loadingOrNoRestaurants">
       <app-admin-restaurant-card
         *ngFor="let restaurant of restaurants"
         [restaurant]="restaurant"
         class="shadow-md rounded-md overflow-hidden bg-white"
       ></app-admin-restaurant-card>
     </ng-container>
-    <ng-template #noRestaurants>
-      <p class="text-gray-600 text-lg">No restaurants found.</p>
+    <ng-template #loadingOrNoRestaurants>
+      <ng-container
+        *ngIf="restaurants && restaurants.length === 0; else loading"
+      >
+        <p class="text-gray-600 text-lg">No restaurants found.</p>
+      </ng-container>
+      <ng-template #loading>
+        <app-loading></app-loading>
+      </ng-template>
     </ng-template>
   </div>
 

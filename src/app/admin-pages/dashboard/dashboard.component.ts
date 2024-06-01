@@ -4,6 +4,7 @@ import { AdminLayoutComponent } from '../layouts/layout/layout.component';
 import { NgFor, NgIf } from '@angular/common';
 import { AdminRestaurantCardComponent } from '../../admin-components/admin-restaurant-card/admin-restaurant-card.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 interface Restaurant {
   id: number;
@@ -25,6 +26,7 @@ interface Restaurant {
     AdminRestaurantCardComponent,
     NgIf,
     ActionButtonComponent,
+    LoadingComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
