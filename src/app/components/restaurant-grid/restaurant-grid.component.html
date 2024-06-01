@@ -1,0 +1,21 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-4">
+  <ng-container *ngIf="restaurants; else loadingOrNoRestaurants">
+    <div
+      *ngFor="let restaurant of restaurants"
+      class="shadow-md rounded-md overflow-hidden bg-white"
+    >
+      <app-admin-restaurant-card
+        [restaurant]="restaurant"
+        (click)="onRestaurantClick(restaurant)"
+      ></app-admin-restaurant-card>
+    </div>
+  </ng-container>
+  <ng-template #loadingOrNoRestaurants>
+    <ng-container *ngIf="restaurants && restaurants.length === 0; else loading">
+      <p class="text-gray-600 text-lg">No restaurants found.</p>
+    </ng-container>
+    <ng-template #loading>
+      <app-loading></app-loading>
+    </ng-template>
+  </ng-template>
+</div>

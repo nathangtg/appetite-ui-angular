@@ -5,6 +5,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { AdminRestaurantCardComponent } from '../../admin-components/admin-restaurant-card/admin-restaurant-card.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { RestaurantGridComponent } from '../../components/restaurant-grid/restaurant-grid.component';
 
 interface Restaurant {
   id: number;
@@ -27,6 +28,7 @@ interface Restaurant {
     NgIf,
     ActionButtonComponent,
     LoadingComponent,
+    RestaurantGridComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
