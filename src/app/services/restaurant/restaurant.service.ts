@@ -85,4 +85,21 @@ export class RestaurantService {
       { headers }
     );
   }
+
+  editRestaurantImage(restaurantId: number, formData: FormData) {
+    console.log(formData);
+    console.log('Services Triggered');
+
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(
+      `${this.apiUrl}/upload/restaurants/${restaurantId}`,
+      formData,
+      { headers }
+    );
+  }
 }

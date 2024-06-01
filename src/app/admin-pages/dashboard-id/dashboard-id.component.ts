@@ -5,7 +5,6 @@ import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TextInputFieldComponent } from '../../components/text-input-field/text-input-field.component';
 import { TextAreaFieldComponent } from '../../components/text-area-field/text-area-field.component';
-import { ImageUploadComponent } from '../../components/image-upload/image-upload.component';
 import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
@@ -29,7 +28,6 @@ interface Restaurant {
     FormsModule,
     TextInputFieldComponent,
     TextAreaFieldComponent,
-    ImageUploadComponent,
     RestaurantHeaderBoxComponent,
     ActionButtonComponent,
     LoadingComponent,
@@ -41,6 +39,7 @@ export class DashboardIdComponent {
   restaurant: Restaurant | null = null;
   restaurantId: number | null = null;
   imagePreview: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private restaurantService: RestaurantService,
@@ -65,11 +64,36 @@ export class DashboardIdComponent {
         this.imagePreview = reader.result as string;
       };
       reader.readAsDataURL(file);
+      this.selectedFile = file;
     }
   }
 
-  submitImage(): void {
-    console.log('Uploading image...');
+  saveImage() {
+    this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
+
+    console.log('Saving image to restaurant...');
+
+    // Check if a file has been selected
+    if (this.selectedFile) {
+      console.log('Saving image to restaurant...');
+
+      // Create FormData object
+      const formData = new FormData();
+      formData.append('image_path', this.selectedFile, this.selectedFile.name);
+
+      console.log(formData);
+
+      this.restaurantService
+        .editRestaurantImage(this.restaurantId, formData)
+        .subscribe(
+          (response) => {
+            console.log('Image upload successful', response);
+          },
+          (error) => {
+            console.error('Image upload failed', error);
+          }
+        );
+    }
   }
 
   saveChanges() {

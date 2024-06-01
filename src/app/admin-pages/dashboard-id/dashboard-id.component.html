@@ -43,7 +43,11 @@
     required
   />
 
-  <app-image-upload (imageChange)="onImageChange($event)"></app-image-upload>
+  <div>
+    <input type="file" (change)="onImageChange($event)" />
+    <img *ngIf="imagePreview" [src]="imagePreview" alt="Image preview" />
+    <button (click)="saveImage()">Upload</button>
+  </div>
 
   <app-action-button
     buttonText="Save Changes"
@@ -51,4 +55,4 @@
   ></app-action-button>
 </div>
 
-<app-loading *ngIf="!restaurant" />
+<app-loading *ngIf="!restaurant"></app-loading>
