@@ -8,6 +8,7 @@ import { UserLayoutComponent } from '../app/pages/layout/layout.component';
 import { DashboardIdComponent } from './admin-pages/dashboard-id/dashboard-id.component';
 import { AdminLayoutComponent } from './admin-pages/layouts/layout/layout.component';
 import { CreateRestaurantComponent } from './admin-pages/create-restaurant/create-restaurant.component';
+import { DashboardIdLayoutComponent } from './admin-pages/layouts/dashboard-id-layout/dashboard-id-layout.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,6 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: 'dashboard/:id', component: DashboardIdComponent },
       {
         path: 'create-restaurant',
         component: CreateRestaurantComponent,
@@ -33,6 +33,16 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin/dashboard/:id',
+    component: DashboardIdLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: DashboardIdComponent,
       },
     ],
   },
