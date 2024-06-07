@@ -113,6 +113,7 @@ export class DashboardIdComponent {
       console.log('Saving changes to restaurant details...');
       console.log(this.restaurant);
 
+      // Destructure the restaurant object to remove the image_path property
       const { image_path, ...restaurantWithoutImagePath } = this.restaurant;
 
       this.restaurantService
