@@ -26,7 +26,9 @@ export class OrderService {
   createOrderAPI(
     order: any,
     restaurantId: string | null,
-    email: string
+    email: string,
+    orderType: string,
+    paymentMethod: string
   ): Observable<any> {
     const token = localStorage.getItem('token');
 

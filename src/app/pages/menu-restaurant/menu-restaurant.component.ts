@@ -156,18 +156,17 @@ export class MenuRestaurantComponent implements OnInit {
     }, 3000);
   }
 
-  handleOrderDetailsSubmit(details: any) {
-    this.email = details.email;
-    this.orderType = details.orderType;
-    this.paymentMethod = details.paymentMethod;
-    this.handlePlaceOrder();
-  }
-
   handlePlaceOrder() {
     console.log('Placing order');
 
     this.orderService
-      .createOrderAPI(this.menuItems, this.restaurantId, this.email)
+      .createOrderAPI(
+        this.menuItems,
+        this.restaurantId,
+        this.email,
+        this.orderType,
+        this.paymentMethod
+      )
       .subscribe(
         (response) => {
           console.log('Order created:', response);
