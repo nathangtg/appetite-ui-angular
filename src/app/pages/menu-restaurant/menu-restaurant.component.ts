@@ -156,9 +156,10 @@ export class MenuRestaurantComponent implements OnInit {
     }, 3000);
   }
 
-  handleEmailSubmit(email: string) {
-    console.log('Email submitted:', email);
-    this.email = email;
+  handleOrderDetailsSubmit(details: any) {
+    this.email = details.email;
+    this.orderType = details.orderType;
+    this.paymentMethod = details.paymentMethod;
     this.handlePlaceOrder();
   }
 
