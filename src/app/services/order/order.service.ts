@@ -24,11 +24,13 @@ export class OrderService {
   }
 
   createOrderAPI(
-    order: any,
-    restaurantId: string | null,
     email: string,
-    orderType: string,
-    paymentMethod: string
+    status: string,
+    order_type: string,
+    payment_method: string,
+    payment_status: string,
+    restaurantId: string,
+    items: any
   ): Observable<any> {
     const token = localStorage.getItem('token');
 
@@ -38,7 +40,7 @@ export class OrderService {
 
     return this.http.post<any>(
       `${this.apiUrl}/orders/${restaurantId}/create`,
-      { order, email, orderType, paymentMethod },
+      { email, status, order_type, payment_method, payment_status, items },
       {
         headers,
       }

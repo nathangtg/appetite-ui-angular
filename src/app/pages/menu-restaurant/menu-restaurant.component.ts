@@ -128,12 +128,17 @@ export class MenuRestaurantComponent implements OnInit {
     }
   }
 
-  getOrderedItems() {
+  getOrderedItems(): { menu_id: number; quantity: number; price: number }[] {
     console.log('Getting ordered items');
-    console.log(this.menuItems.filter((item) => item.quantity > 0));
+    const orderedItems = this.menuItems.filter((item) => item.quantity > 0);
+    console.log(orderedItems);
 
     this.showModal = true;
-    return this.menuItems.filter((item) => item.quantity > 0);
+    return orderedItems.map((item) => ({
+      menu_id: item.id,
+      quantity: item.quantity,
+      price: item.price,
+    }));
   }
 
   handleModalClose() {
@@ -156,21 +161,42 @@ export class MenuRestaurantComponent implements OnInit {
     }, 3000);
   }
 
-  handlePlaceOrder() {
+  handlePlaceOrder(
+    orderItems: { menu_id: number; quantity: number; price: number }[]
+  ) {
     console.log('Placing order');
+
+    if (!this.restaurantId) {
+      console.error('Restaurant ID is null');
+      this.showToastMessage(
+        'error',
+        'Error placing order: Restaurant ID is missing'
+      );
+      return;
+    }
+
+    // Assuming the API expects only menu_id and quantity for each item
+    const orderDetails = orderItems.map((item) => ({
+      menu_id: item.menu_id,
+      quantity: item.quantity,
+      price: item.price,
+    }));
 
     this.orderService
       .createOrderAPI(
-        this.menuItems,
-        this.restaurantId,
         this.email,
+        'pending',
         this.orderType,
-        this.paymentMethod
+        this.paymentMethod,
+        'pending',
+        this.restaurantId,
+        orderDetails
       )
       .subscribe(
         (response) => {
           console.log('Order created:', response);
           this.showToastMessage('success', 'Order placed successfully');
+          this.showModal = false; // Close the modal after successful order
         },
         (error) => {
           console.error('Error placing order:', error);
@@ -184,8 +210,9 @@ export class MenuRestaurantComponent implements OnInit {
     this.orderType = details.orderType;
     this.paymentMethod = details.paymentMethod;
 
-    console.log('Order details:', details);
+    const orderedItems = this.getOrderedItems();
+    console.log('Order details:', orderedItems);
 
-    this.handlePlaceOrder();
+    this.handlePlaceOrder(orderedItems);
   }
 }
