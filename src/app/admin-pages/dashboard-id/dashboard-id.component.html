@@ -80,3 +80,9 @@
 </div>
 
 <app-loading *ngIf="!restaurant"></app-loading>
+
+<app-toast
+  [message]="toastMessage"
+  [show]="showToast"
+  [type]="toastType"
+></app-toast>

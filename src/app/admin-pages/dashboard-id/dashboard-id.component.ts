@@ -8,6 +8,7 @@ import { TextAreaFieldComponent } from '../../components/text-area-field/text-ar
 import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { ToastComponent } from '../../components/toast/toast.component';
 
 interface Restaurant {
   id: number;
@@ -31,6 +32,7 @@ interface Restaurant {
     RestaurantHeaderBoxComponent,
     ActionButtonComponent,
     LoadingComponent,
+    ToastComponent,
   ],
   templateUrl: './dashboard-id.component.html',
   styleUrl: './dashboard-id.component.css',
@@ -40,6 +42,11 @@ export class DashboardIdComponent {
   restaurantId: number | null = null;
   imagePreview: string | null = null;
   selectedFile: File | null = null;
+
+  // Toast properties
+  showToast: boolean = false;
+  toastMessage: string = '';
+  toastType: 'success' | 'error' = 'success';
 
   constructor(
     private restaurantService: RestaurantService,
@@ -116,5 +123,19 @@ export class DashboardIdComponent {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
     this.restaurantService.deleteRestaurant(this.restaurantId).subscribe();
+  }
+
+  showSuccessToast(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'success';
+    this.showToast = true;
+    setTimeout(() => (this.showToast = false), 3000); // hide after 3 seconds
+  }
+
+  showErrorToast(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'error';
+    this.showToast = true;
+    setTimeout(() => (this.showToast = false), 3000); // hide after 3 seconds
   }
 }
