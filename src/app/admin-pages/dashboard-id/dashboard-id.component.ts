@@ -73,6 +73,7 @@ export class DashboardIdComponent {
       reader.readAsDataURL(file);
       this.selectedFile = file;
     }
+    this.showSuccessToast('Image preview updated');
   }
 
   saveImage() {
@@ -95,9 +96,11 @@ export class DashboardIdComponent {
         .subscribe(
           (response) => {
             console.log('Image upload successful', response);
+            this.showSuccessToast('Image uploaded successfully');
           },
           (error) => {
             console.error('Image upload failed', error);
+            this.showErrorToast('Image upload failed');
           }
         );
     }
@@ -117,12 +120,16 @@ export class DashboardIdComponent {
         .editRestaurant(restaurantWithoutImagePath, this.restaurantId)
         .subscribe();
     }
+
+    this.showSuccessToast('Restaurant details updated successfully');
   }
 
   deleteRestaurant() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
     this.restaurantService.deleteRestaurant(this.restaurantId).subscribe();
+
+    this.showSuccessToast('Restaurant deleted successfully');
   }
 
   showSuccessToast(message: string) {
