@@ -38,8 +38,10 @@ export class OrderService {
 
     return this.http.post<any>(
       `${this.apiUrl}/orders/${restaurantId}/create`,
-      order,
-      { headers }
+      { order, email, orderType, paymentMethod },
+      {
+        headers,
+      }
     );
   }
 }
