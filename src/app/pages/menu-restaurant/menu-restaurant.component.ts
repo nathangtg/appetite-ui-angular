@@ -58,6 +58,8 @@ export class MenuRestaurantComponent implements OnInit {
 
   // Email properties
   email: string = '';
+  orderType: 'dine-in' | 'takeaway' = 'takeaway';
+  paymentMethod: 'cash' | 'card' = 'cash';
 
   constructor(
     private menuService: MenuService,

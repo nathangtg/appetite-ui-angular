@@ -12,11 +12,18 @@ import { FormsModule } from '@angular/forms';
 export class EmailModalComponent {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<void>();
-  @Output() submitEmail = new EventEmitter<string>();
+  @Output() submitOrderDetails = new EventEmitter<any>();
+
   email: string = '';
+  orderType: 'dine-in' | 'takeaway' = 'takeaway';
+  paymentMethod: 'cash' | 'card' = 'cash';
 
   handleSubmit() {
-    this.submitEmail.emit(this.email);
+    this.submitOrderDetails.emit({
+      email: this.email,
+      orderType: this.orderType,
+      paymentMethod: this.paymentMethod,
+    });
     this.close.emit();
   }
 }

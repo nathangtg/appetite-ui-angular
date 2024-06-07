@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { map, Observable } from 'rxjs';
@@ -28,9 +28,16 @@ export class OrderService {
     restaurantId: string | null,
     email: string
   ): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     return this.http.post<any>(
       `${this.apiUrl}/orders/${restaurantId}/create`,
-      order
+      order,
+      { headers }
     );
   }
 }
