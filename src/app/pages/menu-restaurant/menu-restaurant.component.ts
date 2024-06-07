@@ -183,6 +183,9 @@ export class MenuRestaurantComponent implements OnInit {
     this.email = details.email;
     this.orderType = details.orderType;
     this.paymentMethod = details.paymentMethod;
+
+    console.log('Order details:', details);
+
     this.handlePlaceOrder();
   }
 }
