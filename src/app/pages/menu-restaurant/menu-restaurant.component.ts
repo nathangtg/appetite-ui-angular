@@ -179,10 +179,10 @@ export class MenuRestaurantComponent implements OnInit {
       );
   }
 
-  handleOrderDetailsSubmit(orderDetails: any) {
-    console.log('Order details:', orderDetails);
-    this.email = orderDetails.email;
-    this.orderType = orderDetails.orderType;
-    this.paymentMethod = orderDetails.paymentMethod;
+  handleOrderDetailsSubmit(details: any) {
+    this.email = details.email;
+    this.orderType = details.orderType;
+    this.paymentMethod = details.paymentMethod;
+    this.handlePlaceOrder();
   }
 }
