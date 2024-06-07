@@ -46,7 +46,7 @@ export class DashboardIdComponent {
   // Toast properties
   showToast: boolean = false;
   toastMessage: string = '';
-  toastType: 'success' | 'error' = 'success';
+  toastType: 'success' | 'error' | 'warning' | 'info' = 'info';
 
   constructor(
     private restaurantService: RestaurantService,
@@ -113,7 +113,6 @@ export class DashboardIdComponent {
       console.log('Saving changes to restaurant details...');
       console.log(this.restaurant);
 
-      // Create a copy of the restaurant object without the image_path property
       const { image_path, ...restaurantWithoutImagePath } = this.restaurant;
 
       this.restaurantService
@@ -126,9 +125,7 @@ export class DashboardIdComponent {
 
   deleteRestaurant() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
-
     this.restaurantService.deleteRestaurant(this.restaurantId).subscribe();
-
     this.showSuccessToast('Restaurant deleted successfully');
   }
 
@@ -142,6 +139,13 @@ export class DashboardIdComponent {
   showErrorToast(message: string) {
     this.toastMessage = message;
     this.toastType = 'error';
+    this.showToast = true;
+    setTimeout(() => (this.showToast = false), 3000); // hide after 3 seconds
+  }
+
+  showWarningToast(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'warning';
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 3000); // hide after 3 seconds
   }
