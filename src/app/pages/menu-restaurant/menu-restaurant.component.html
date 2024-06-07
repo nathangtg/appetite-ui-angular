@@ -27,4 +27,16 @@
   ></app-cart-section>
 
   <app-order-button (order)="getOrderedItems()"></app-order-button>
+
+  <app-toast
+    [show]="showToast"
+    [message]="toastMessage"
+    [type]="toastType"
+  ></app-toast>
+
+  <app-email-modal
+    [show]="showModal"
+    (close)="handleModalClose()"
+    (submitEmail)="handlePlaceOrder()"
+  ></app-email-modal>
 </div>

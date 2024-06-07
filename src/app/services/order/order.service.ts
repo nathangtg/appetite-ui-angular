@@ -23,7 +23,11 @@ export class OrderService {
     );
   }
 
-  createOrderAPI(order: any, restaurantId: number): Observable<any> {
+  createOrderAPI(
+    order: any,
+    restaurantId: string | null,
+    email: string
+  ): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/orders/${restaurantId}/create`,
       order

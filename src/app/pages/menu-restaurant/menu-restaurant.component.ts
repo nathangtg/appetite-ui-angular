@@ -11,6 +11,9 @@ import { MenuSectionComponent } from '../../components/menu-section/menu-section
 import { CartSectionComponent } from '../../components/cart-section/cart-section.component';
 import { CartButtonComponent } from '../../components/cart-button/cart-button.component';
 import { OrderButtonComponent } from '../../components/order-button/order-button.component';
+import { ToastComponent } from '../../components/toast/toast.component';
+import { EmailModalComponent } from '../../components/email-modal/email-modal.component';
+import { OrderService } from '../../services/order/order.service';
 
 @Component({
   selector: 'app-menu-restaurant',
@@ -25,6 +28,8 @@ import { OrderButtonComponent } from '../../components/order-button/order-button
     CartSectionComponent,
     CartButtonComponent,
     OrderButtonComponent,
+    ToastComponent,
+    EmailModalComponent,
   ],
   templateUrl: './menu-restaurant.component.html',
   styleUrls: ['./menu-restaurant.component.css'],
@@ -39,10 +44,26 @@ export class MenuRestaurantComponent implements OnInit {
   restaurantImage: string | null = null;
   restaurantPreparationTime: string | null = null;
 
+  // TOast properties
+  showToast: boolean = false;
+  toastMessage: string = '';
+  toastType: 'success' | 'error' | 'warning' | 'info' = 'info';
+
+  // Menu properties
   menuItems: any[] = [];
   itemsWithQuantity: any[] = [];
 
-  constructor(private menuService: MenuService, private route: ActivatedRoute) {
+  // Modal properties
+  showModal: boolean = false;
+
+  // Email properties
+  email: string = '';
+
+  constructor(
+    private menuService: MenuService,
+    private route: ActivatedRoute,
+    private orderService: OrderService
+  ) {
     this.restaurantId = this.route.snapshot.paramMap.get('id');
   }
 
@@ -108,10 +129,51 @@ export class MenuRestaurantComponent implements OnInit {
   getOrderedItems() {
     console.log('Getting ordered items');
     console.log(this.menuItems.filter((item) => item.quantity > 0));
+
+    this.showModal = true;
     return this.menuItems.filter((item) => item.quantity > 0);
+  }
+
+  handleModalClose() {
+    this.showModal = false;
   }
 
   hasItemsInCart(): boolean {
     return this.menuItems.some((item) => item.quantity > 0);
+  }
+
+  showToastMessage(
+    type: 'success' | 'error' | 'warning' | 'info',
+    message: string
+  ) {
+    this.toastType = type;
+    this.toastMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
+  }
+
+  handleEmailSubmit(email: string) {
+    console.log('Email submitted:', email);
+    this.email = email;
+    this.handlePlaceOrder();
+  }
+
+  handlePlaceOrder() {
+    console.log('Placing order');
+
+    this.orderService
+      .createOrderAPI(this.menuItems, this.restaurantId, this.email)
+      .subscribe(
+        (response) => {
+          console.log('Order created:', response);
+          this.showToastMessage('success', 'Order placed successfully');
+        },
+        (error) => {
+          console.error('Error placing order:', error);
+          this.showToastMessage('error', 'Error placing order');
+        }
+      );
   }
 }
