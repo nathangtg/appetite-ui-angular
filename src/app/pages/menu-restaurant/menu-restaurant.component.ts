@@ -76,7 +76,7 @@ export class MenuRestaurantComponent implements OnInit {
 
   fetchMenuItems() {
     if (this.restaurantId) {
-      this.menuService.getMenuFromAPI(this.restaurantId).subscribe(
+      this.menuService.getMenuFromClientAPI(this.restaurantId).subscribe(
         (response) => {
           this.restaurantName = response.name;
           this.menuItems = response.menus;

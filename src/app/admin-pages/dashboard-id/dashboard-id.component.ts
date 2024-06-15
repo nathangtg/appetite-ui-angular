@@ -56,6 +56,8 @@ export class DashboardIdComponent {
   ngOnInit() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
+    console.log(this.restaurantId);
+
     this.restaurantService.getRestaurantsForAdmin().subscribe((response) => {
       this.restaurant = response.find(
         (restaurant: Restaurant) => restaurant.id === this.restaurantId

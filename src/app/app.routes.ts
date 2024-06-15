@@ -9,6 +9,8 @@ import { DashboardIdComponent } from './admin-pages/dashboard-id/dashboard-id.co
 import { AdminLayoutComponent } from './admin-pages/layouts/layout/layout.component';
 import { CreateRestaurantComponent } from './admin-pages/create-restaurant/create-restaurant.component';
 import { DashboardIdLayoutComponent } from './admin-pages/layouts/dashboard-id-layout/dashboard-id-layout.component';
+import { OrderAdminComponent } from './admin-pages/order-admin/order-admin.component';
+import { MenuAdminComponent } from './admin-pages/menu-admin/menu-admin/menu-admin.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +45,14 @@ export const routes: Routes = [
       {
         path: '',
         component: DashboardIdComponent,
+      },
+      {
+        path: 'orders',
+        component: OrderAdminComponent,
+      },
+      {
+        path: 'menu',
+        component: MenuAdminComponent,
       },
     ],
   },

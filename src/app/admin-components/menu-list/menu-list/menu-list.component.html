@@ -1,0 +1,241 @@
+<div class="mt-6">
+  <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+    Menu Items
+  </h3>
+  <div
+    class="overflow-hidden border-b border-gray-200 dark:border-gray-700 shadow sm:rounded-lg mt-4"
+  >
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+      <thead class="bg-gray-50 dark:bg-gray-700">
+        <tr>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            ID
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Name
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Price
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Description
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Image
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Display
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+      >
+        <ng-container *ngFor="let menuItem of menuItems">
+          <tr>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              {{ menuItem.id }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              {{ menuItem.name }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              {{ menuItem.price }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              {{ menuItem.description }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              <img
+                *ngIf="menuItem.image"
+                [src]="menuItem.image"
+                [alt]="menuItem.name"
+                class="h-16 w-auto"
+              />
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              <span
+                *ngIf="menuItem.display === 'yes'"
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+              >
+                Yes
+              </span>
+              <span
+                *ngIf="menuItem.display === 'no'"
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"
+              >
+                No
+              </span>
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+            >
+              <button
+                class="text-indigo-600 hover:text-indigo-900 ml-2"
+                (click)="initEditForm(menuItem)"
+              >
+                Edit
+              </button>
+              <button class="text-red-600 hover:text-red-900 ml-2">
+                Delete
+              </button>
+            </td>
+          </tr>
+          <!-- Edit form section -->
+          <tr *ngIf="editForm && editForm.value?.id === menuItem.id">
+            <td colspan="7" class="px-6 py-4">
+              <form
+                [formGroup]="editForm"
+                (ngSubmit)="submitEditForm()"
+                class="space-y-4 border border-gray-200 dark:border-gray-700 rounded-md p-4"
+              >
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="col-span-4 sm:col-span-1">
+                    <label
+                      for="name"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      formControlName="name"
+                      required
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 rounded-md"
+                    />
+                  </div>
+                  <div class="col-span-4 sm:col-span-1">
+                    <label
+                      for="price"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      id="price"
+                      formControlName="price"
+                      required
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 rounded-md"
+                    />
+                  </div>
+                  <div class="col-span-4 sm:col-span-1">
+                    <label
+                      for="description"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      id="description"
+                      formControlName="description"
+                      required
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 rounded-md"
+                    />
+                  </div>
+                  <div class="col-span-4 sm:col-span-1">
+                    <label
+                      for="image"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                      Upload Image
+                    </label>
+                    <div class="mt-1 flex items-center">
+                      <label
+                        for="file-upload"
+                        class="relative cursor-pointer bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 border rounded-md py-2 px-3 inline-flex items-center justify-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                      >
+                        <span>Select File</span>
+                        <input
+                          id="file-upload"
+                          type="file"
+                          formControlName="image"
+                          (change)="submitImageUpload($event, menuItem)"
+                          accept="image/*"
+                          class="sr-only"
+                        />
+                      </label>
+                      <span
+                        class="ml-2 text-gray-500 dark:text-gray-400"
+                        *ngIf="editForm.get('image')?.value"
+                      >
+                        {{ editForm.get("image")?.value?.name }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-span-4 sm:col-span-1">
+                    <label
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                      Display
+                    </label>
+                    <select
+                      formControlName="display"
+                      class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    >
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                  <div class="col-span-4 sm:col-span-4 flex justify-end">
+                    <button
+                      type="submit"
+                      class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      (click)="cancelEdit()"
+                      class="ml-2 inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

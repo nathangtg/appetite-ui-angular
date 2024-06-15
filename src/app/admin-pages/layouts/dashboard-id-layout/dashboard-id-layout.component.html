@@ -2,6 +2,7 @@
   class="min-h-screen flex flex-col md:flex-row bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
 >
   <!-- Sidebar -->
+  <!-- Sidebar -->
   <aside
     [ngClass]="{ hidden: !sidebarOpen, block: sidebarOpen, 'md:block': true }"
     class="w-64 bg-white dark:bg-gray-800 shadow-md md:static fixed z-10"
@@ -30,30 +31,34 @@
       </button>
     </div>
     <nav class="mt-6">
-      <a
-        routerLink="/admin/orders"
+      <button
+        (click)="redirectToOrders()"
         routerLinkActive="bg-gray-200 dark:bg-gray-700"
         class="block px-4 py-2 mt-2 text-sm text-gray-600 dark:text-gray-300 rounded-md"
-        >Orders</a
       >
+        Orders
+      </button>
+      <a
+        routerLink="/admin/dashboard/{{ id }}/statistics"
+        routerLinkActive="bg-gray-200 dark:bg-gray-700"
+        class="block px-4 py-2 mt-2 text-sm text-gray-600 dark:text-gray-300 rounded-md"
+      >
+        Statistics
+      </a>
       <a
         routerLink="/admin/menu"
         routerLinkActive="bg-gray-200 dark:bg-gray-700"
         class="block px-4 py-2 mt-2 text-sm text-gray-600 dark:text-gray-300 rounded-md"
-        >Menu</a
       >
-      <a
-        routerLink="/admin/statistics"
-        routerLinkActive="bg-gray-200 dark:bg-gray-700"
-        class="block px-4 py-2 mt-2 text-sm text-gray-600 dark:text-gray-300 rounded-md"
-        >Statistics</a
-      >
+        Menu
+      </a>
       <a
         routerLink="/auth/login"
         routerLinkActive="bg-gray-200 dark:bg-gray-700"
         class="block px-4 py-2 mt-2 text-sm text-gray-600 dark:text-gray-300 rounded-md"
-        >Logout</a
       >
+        Logout
+      </a>
     </nav>
   </aside>
 

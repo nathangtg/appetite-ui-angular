@@ -12,8 +12,30 @@ export class OrderService {
   apiUrl = environment.apiUrl;
 
   getOrdersByRestaurantAPI(restaurantId: string): Observable<any[]> {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     return this.http
-      .get<{ orders: any[] }>(`${this.apiUrl}/orders/${restaurantId}`)
+      .get<{ orders: any[] }>(`${this.apiUrl}/orders/${restaurantId}`, {
+        headers: header,
+      })
+      .pipe(map((response) => response.orders));
+  }
+
+  getOrdersByUserAPI(userId: string): Observable<any[]> {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http
+      .get<{ orders: any[] }>(`${this.apiUrl}/orders/user/${userId}`, {
+        headers: header,
+      })
       .pipe(map((response) => response.orders));
   }
 
@@ -45,5 +67,45 @@ export class OrderService {
         headers,
       }
     );
+  }
+
+  // Get ordered items
+  getOrderedItemsAPI(restaurantId: string, orderId: string): Observable<any[]> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    console.log('Getting ordered items for order:', orderId);
+
+    return this.http
+      .get<{ items: any[] }>(
+        `${this.apiUrl}/orders/${restaurantId}/${orderId}`,
+        {
+          headers,
+        }
+      )
+      .pipe(map((response) => response.items));
+  }
+
+  updateOrder(
+    restaurantId: string,
+    orderId: string,
+    orderData: any
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const url = `${this.apiUrl}/orders/${restaurantId}/${orderId}/update`;
+
+    return this.http.put<any>(url, orderData, { headers });
   }
 }
