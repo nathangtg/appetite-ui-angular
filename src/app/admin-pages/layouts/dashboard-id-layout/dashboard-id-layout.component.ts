@@ -49,4 +49,12 @@ export class DashboardIdLayoutComponent {
   redirectToOrders() {
     this.router.navigate(['orders'], { relativeTo: this.route });
   }
+
+  redirectToMenu() {
+    this.router.navigate(['menu'], { relativeTo: this.route });
+  }
+
+  redirectToRestaurant() {
+    this.router.navigate(['admin/dashboard/' + this.id]);
+  }
 }

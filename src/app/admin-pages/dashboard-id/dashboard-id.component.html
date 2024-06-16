@@ -1,6 +1,7 @@
 <div *ngIf="restaurant" class="restaurant-details p-4">
   <h2 class="text-2xl font-bold mb-4">Edit Restaurant Details</h2>
 
+  <!-- Restaurant header box -->
   <app-restaurant-header-box
     [restaurantName]="restaurant.name"
     [restaurantDescription]="restaurant.description"
@@ -11,7 +12,12 @@
     [restaurantPreparationTime]="restaurant.preparation_time.toString()"
   ></app-restaurant-header-box>
 
-  <app-text-input-field label="Name" [(value)]="restaurant.name" required />
+  <!-- Text input fields -->
+  <app-text-input-field
+    label="Name"
+    [(value)]="restaurant.name"
+    required
+  ></app-text-input-field>
 
   <app-text-input-field
     label="Address"
@@ -19,11 +25,22 @@
     required
   ></app-text-input-field>
 
-  <app-text-input-field
-    label="Cuisine"
-    [(value)]="restaurant.cuisine"
-    required
-  ></app-text-input-field>
+  <!-- Cuisine Dropdown -->
+  <label for="cuisine" class="block text-sm font-medium text-gray-700">
+    Cuisine
+  </label>
+  <select
+    [(ngModel)]="restaurant.cuisine"
+    class="form-select block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 sm:text-sm"
+  >
+    <option value="" disabled selected hidden>Select Cuisine</option>
+    <option
+      *ngFor="let option of cuisineOptions"
+      [value]="option.toLowerCase()"
+    >
+      {{ option }}
+    </option>
+  </select>
 
   <app-text-area-field
     label="Description"
@@ -37,26 +54,32 @@
     required
   ></app-text-input-field>
 
-  <app-text-input-field
-    label="Price Range"
-    [(value)]="restaurant.price_range"
-    required
-  ></app-text-input-field>
+  <!-- Price Range Dropdown -->
+  <label for="price_range" class="block text-sm font-medium text-gray-700">
+    Price Range
+  </label>
+  <select
+    class="form-select block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 sm:text-sm"
+    [(ngModel)]="restaurant.price_range"
+  >
+    <option *ngFor="let option of priceRangeOptions" [value]="option">
+      {{ option }}
+    </option>
+  </select>
 
+  <!-- File upload -->
   <div class="flex-col space-y-4 my-4">
     <input
       type="file"
       (change)="onImageChange($event)"
       class="border border-gray-300 p-2"
     />
-
     <img
       *ngIf="imagePreview"
       [src]="imagePreview"
       alt="Image preview"
       class="max-w-full h-auto"
     />
-
     <button
       class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
       (click)="saveImage()"
@@ -65,22 +88,24 @@
     </button>
   </div>
 
+  <!-- Action buttons -->
   <app-action-button
     buttonText="Save Changes"
     (buttonClick)="saveChanges()"
   ></app-action-button>
-
   <app-action-button
-    (buttonClick)="deleteRestaurant()"
     buttonText="Delete Restaurant"
+    (buttonClick)="deleteRestaurant()"
     buttonColor="red-500"
     buttonHoverColor="red-700"
     additionalClasses="my-4"
   ></app-action-button>
 </div>
 
+<!-- Loading indicator -->
 <app-loading *ngIf="!restaurant"></app-loading>
 
+<!-- Toast component -->
 <app-toast
   [message]="toastMessage"
   [show]="showToast"

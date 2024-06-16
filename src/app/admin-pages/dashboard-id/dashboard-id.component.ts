@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TextInputFieldComponent } from '../../components/text-input-field/text-input-field.component';
 import { TextAreaFieldComponent } from '../../components/text-area-field/text-area-field.component';
@@ -33,15 +33,32 @@ interface Restaurant {
     ActionButtonComponent,
     LoadingComponent,
     ToastComponent,
+    NgForOf,
   ],
   templateUrl: './dashboard-id.component.html',
-  styleUrl: './dashboard-id.component.css',
+  styleUrls: ['./dashboard-id.component.css'],
 })
 export class DashboardIdComponent {
   restaurant: Restaurant | null = null;
   restaurantId: number | null = null;
   imagePreview: string | null = null;
   selectedFile: File | null = null;
+
+  // Dropdown options
+  priceRangeOptions: string[] = ['$', '$$', '$$$', '$$$$', '$$$$$'];
+  cuisineOptions: string[] = [
+    'Malay',
+    'Chinese',
+    'Indian',
+    'Thai',
+    'Western',
+    'Indonesian',
+    'Japanese',
+    'Korean',
+    'Middle-Eastern',
+    'Fusion',
+    'Other',
+  ];
 
   // Toast properties
   showToast: boolean = false;
@@ -56,8 +73,6 @@ export class DashboardIdComponent {
   ngOnInit() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
-    console.log(this.restaurantId);
-
     this.restaurantService.getRestaurantsForAdmin().subscribe((response) => {
       this.restaurant = response.find(
         (restaurant: Restaurant) => restaurant.id === this.restaurantId
@@ -65,6 +80,7 @@ export class DashboardIdComponent {
     });
   }
 
+  // Handle file change event for image upload
   onImageChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -78,20 +94,13 @@ export class DashboardIdComponent {
     this.showSuccessToast('Image preview updated');
   }
 
+  // Save image method
   saveImage() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
-    console.log('Saving image to restaurant...');
-
-    // Check if a file has been selected
     if (this.selectedFile) {
-      console.log('Saving image to restaurant...');
-
-      // Create FormData object
       const formData = new FormData();
       formData.append('image_path', this.selectedFile, this.selectedFile.name);
-
-      console.log(formData);
 
       this.restaurantService
         .editRestaurantImage(this.restaurantId, formData)
@@ -108,30 +117,42 @@ export class DashboardIdComponent {
     }
   }
 
+  // Save changes method
   saveChanges() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
 
     if (this.restaurant) {
-      console.log('Saving changes to restaurant details...');
-      console.log(this.restaurant);
-
-      // Destructure the restaurant object to remove the image_path property
       const { image_path, ...restaurantWithoutImagePath } = this.restaurant;
 
       this.restaurantService
         .editRestaurant(restaurantWithoutImagePath, this.restaurantId)
-        .subscribe();
+        .subscribe(
+          () => {
+            this.showSuccessToast('Restaurant details updated successfully');
+          },
+          (error) => {
+            console.error('Error saving changes:', error);
+            this.showErrorToast('Failed to save changes');
+          }
+        );
     }
-
-    this.showSuccessToast('Restaurant details updated successfully');
   }
 
+  // Delete restaurant method
   deleteRestaurant() {
     this.restaurantId = +this.route.snapshot.paramMap.get('id')!;
-    this.restaurantService.deleteRestaurant(this.restaurantId).subscribe();
-    this.showSuccessToast('Restaurant deleted successfully');
+    this.restaurantService.deleteRestaurant(this.restaurantId).subscribe(
+      () => {
+        this.showSuccessToast('Restaurant deleted successfully');
+      },
+      (error) => {
+        console.error('Error deleting restaurant:', error);
+        this.showErrorToast('Failed to delete restaurant');
+      }
+    );
   }
 
+  // Toast methods
   showSuccessToast(message: string) {
     this.toastMessage = message;
     this.toastType = 'success';

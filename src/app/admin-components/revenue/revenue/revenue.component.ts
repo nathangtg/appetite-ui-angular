@@ -28,7 +28,10 @@ export class RevenueComponent implements OnInit {
       .getOrdersByRestaurantAPI(this.restaurantId)
       .subscribe((data) => {
         this.totalOrders = data.length;
-        this.totalRevenue = data.reduce((acc, order) => acc + order.total, 0);
+        this.totalRevenue = data.reduce(
+          (acc, order) => acc + parseFloat(order.total),
+          0
+        );
         this.pendingOrders = data.filter(
           (order) => order.status === 'pending'
         ).length;

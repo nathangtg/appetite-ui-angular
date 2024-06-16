@@ -1,3 +1,4 @@
+import { LoadingComponent } from './../../../components/loading/loading.component';
 import { Component, Input } from '@angular/core';
 import { MenuService } from '../../../services/menu/menu.service';
 import { NgFor, NgIf } from '@angular/common';
@@ -12,18 +13,22 @@ import {
 @Component({
   selector: 'app-menu-list',
   standalone: true,
-  imports: [NgFor, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [NgFor, FormsModule, ReactiveFormsModule, NgIf, LoadingComponent],
   templateUrl: './menu-list.component.html',
   styleUrl: './menu-list.component.css',
 })
 export class MenuListComponent {
   @Input() menuItems: any[] = [];
   restaurantId: string | null = null;
-  editForm: FormGroup | null = null; // Form group to handle editing
+  editForm: FormGroup | null = null;
+
+  LoadingMenuComponent: boolean = false;
 
   constructor(private menuService: MenuService, private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.LoadingMenuComponent = true;
+
     this.restaurantId = this.getRestaurantIdFromUrl();
     if (this.restaurantId !== null) {
       this.fetchMenu();
@@ -36,7 +41,7 @@ export class MenuListComponent {
     this.menuService.getMenuFromAPI(this.restaurantId!).subscribe(
       (data) => {
         this.menuItems = data.menus;
-        console.log('Menu:', this.menuItems);
+        this.LoadingMenuComponent = false;
       },
       (error) => {
         console.error('Failed to fetch menu:', error);
@@ -55,7 +60,6 @@ export class MenuListComponent {
     }
   }
 
-  // Method to initialize the edit form with menu item data
   initEditForm(menuItem: any) {
     this.editForm = this.fb.group({
       id: [menuItem.id, Validators.required],
@@ -67,7 +71,6 @@ export class MenuListComponent {
     });
   }
 
-  // Method to submit the edited menu item
   submitEditForm() {
     if (this.editForm!.valid) {
       const editedMenuItem = this.editForm!.value;
@@ -75,7 +78,6 @@ export class MenuListComponent {
       console.log('Restaurant ID:', this.restaurantId);
       this.editForm = null;
 
-      // Call the API to update the menu item
       this.menuService
         .modifyMenuItemInAPI(
           this.restaurantId!,
@@ -94,12 +96,10 @@ export class MenuListComponent {
     }
   }
 
-  // Method to cancel editing
   cancelEdit() {
     this.editForm = null;
   }
 
-  // Method to handle file upload
   submitImageUpload(event: any, menuItem: any) {
     const file = event.target.files[0];
     if (file) {
