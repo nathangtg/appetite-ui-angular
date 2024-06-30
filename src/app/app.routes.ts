@@ -11,6 +11,7 @@ import { CreateRestaurantComponent } from './admin-pages/create-restaurant/creat
 import { DashboardIdLayoutComponent } from './admin-pages/layouts/dashboard-id-layout/dashboard-id-layout.component';
 import { OrderAdminComponent } from './admin-pages/order-admin/order-admin.component';
 import { MenuAdminComponent } from './admin-pages/menu-admin/menu-admin/menu-admin.component';
+import { OrdersComponent } from './pages/orders/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,14 @@ export const routes: Routes = [
       { path: 'auth/login', component: LoginComponent },
       { path: 'auth/register', component: RegisterComponent },
       { path: 'restaurants', component: RestaurantsComponent },
+      {
+        path: 'restaurants/:id',
+        component: MenuRestaurantComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+      },
     ],
   },
 
@@ -55,9 +64,5 @@ export const routes: Routes = [
         component: MenuAdminComponent,
       },
     ],
-  },
-  {
-    path: 'restaurants/:id',
-    component: MenuRestaurantComponent,
   },
 ];

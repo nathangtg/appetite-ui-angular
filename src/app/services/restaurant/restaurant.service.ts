@@ -117,4 +117,16 @@ export class RestaurantService {
       }
     );
   }
+
+  fetchRecentlyOrderedRestaurants() {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<any>(`${this.apiUrl}/restaurants/recents`, {
+      headers,
+    });
+  }
 }

@@ -1,0 +1,106 @@
+<div class="container mx-auto px-4">
+  <h1 class="text-3xl font-bold mb-6">Orders</h1>
+
+  <!-- Filtering Options -->
+  <div
+    class="flex flex-wrap mb-4 justify-center space-y-2 sm:space-y-0 sm:space-x-4"
+  >
+    <button
+      class="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      (click)="setFilter('all')"
+      [ngClass]="{ 'bg-blue-600': currentFilter === 'all' }"
+    >
+      All Orders
+    </button>
+    <button
+      class="w-full sm:w-auto px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+      (click)="setFilter('pending')"
+      [ngClass]="{ 'bg-yellow-600': currentFilter === 'pending' }"
+    >
+      Pending
+    </button>
+    <button
+      class="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      (click)="setFilter('cancelled')"
+      [ngClass]="{ 'bg-red-600': currentFilter === 'cancelled' }"
+    >
+      Cancelled
+    </button>
+    <button
+      class="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+      (click)="setFilter('completed')"
+      [ngClass]="{ 'bg-green-600': currentFilter === 'completed' }"
+    >
+      Completed
+    </button>
+  </div>
+
+  <!-- No orders found message -->
+  <div *ngIf="filteredOrders.length === 0" class="text-gray-500 text-center">
+    No orders found.
+  </div>
+
+  <!-- Orders Grid -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4"
+  >
+    <div
+      *ngFor="let order of filteredOrders"
+      class="border border-gray-200 rounded p-4 bg-white shadow-md"
+      [ngClass]="{
+        'bg-yellow-100': order.status === 'pending',
+        'bg-red-100': order.status === 'cancelled',
+        'bg-green-100': order.status === 'completed'
+      }"
+    >
+      <div class="flex justify-between mb-2">
+        <div class="text-gray-500">{{ formatDate(order.created_at) }}</div>
+      </div>
+
+      <!-- Display order details -->
+      <div class="mb-2">
+        <div><span class="font-semibold">Email:</span> {{ order.email }}</div>
+        <div><span class="font-semibold">Total:</span> ${{ order.total }}</div>
+      </div>
+
+      <!-- Display more details -->
+      <div class="mb-2">
+        <div>
+          <span class="font-semibold">Order Type:</span> {{ order.order_type }}
+        </div>
+        <div>
+          <span class="font-semibold">Payment Method:</span>
+          {{ order.payment_method }}
+        </div>
+        <div>
+          <span class="font-semibold">Payment Status:</span>
+          {{ order.payment_status }}
+        </div>
+      </div>
+
+      <!-- Display status and cancel button -->
+      <div class="mb-2 flex justify-between items-center">
+        <div><span class="font-semibold">Status:</span> {{ order.status }}</div>
+        <button
+          *ngIf="order.status !== 'completed'"
+          (click)="cancelOrder(order.restaurant_id, order.id)"
+          class="px-4 py-2 rounded"
+          [ngClass]="{
+            'bg-red-500 text-white hover:bg-red-600':
+              order.status !== 'cancelled',
+            'bg-gray-500 text-white cursor-not-allowed':
+              order.status === 'cancelled'
+          }"
+          [disabled]="order.status === 'cancelled'"
+        >
+          {{ order.status === "cancelled" ? "Cancelled" : "Cancel Order" }}
+        </button>
+        <span
+          *ngIf="order.status === 'completed'"
+          class="text-green-600 font-semibold"
+          >Completed</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

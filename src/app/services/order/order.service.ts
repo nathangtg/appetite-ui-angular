@@ -25,7 +25,7 @@ export class OrderService {
       .pipe(map((response) => response.orders));
   }
 
-  getOrdersByUserAPI(userId: string): Observable<any[]> {
+  getOrdersByUserAPI(): Observable<any[]> {
     const token = localStorage.getItem('token');
 
     const header = new HttpHeaders({
@@ -33,7 +33,7 @@ export class OrderService {
     });
 
     return this.http
-      .get<{ orders: any[] }>(`${this.apiUrl}/orders/user/${userId}`, {
+      .get<{ orders: any[] }>(`${this.apiUrl}/orders`, {
         headers: header,
       })
       .pipe(map((response) => response.orders));
