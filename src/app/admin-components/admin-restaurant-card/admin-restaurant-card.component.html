@@ -1,5 +1,25 @@
+<style>
+  .description-container {
+    height: 2.5rem; /* Adjust the height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit the number of lines */
+    -webkit-box-orient: vertical;
+  }
+  .bold-tag {
+    font-weight: bold;
+  }
+  .m-0 {
+    margin: 0;
+  }
+  .mt-2 {
+    margin-top: 0.5rem; /* Add margin for spacing between elements */
+  }
+</style>
+
 <div
-  class="bg-white p-6 rounded-lg shadow-md"
+  class="bg-white p-6 rounded-lg shadow-md h-96"
   (click)="redirectToSpecificRestaurant()"
 >
   <img
@@ -7,12 +27,23 @@
     alt="{{ restaurant.name }}"
     class="w-full h-32 object-cover rounded-lg mb-4"
   />
-  <h3 class="text-lg font-semibold text-gray-800">{{ restaurant.name }}</h3>
-  <p class="text-sm text-gray-600">{{ restaurant.address }}</p>
-  <p class="text-sm text-gray-600">{{ restaurant.cuisine }}</p>
-  <p class="text-sm text-gray-600">{{ restaurant.description }}</p>
-  <p class="text-sm text-gray-600">
-    Preparation Time: {{ restaurant.preparation_time }} mins
+  <h3 class="text-lg font-semibold text-gray-800 m-0">{{ restaurant.name }}</h3>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Address:</span> {{ restaurant.address }}
   </p>
-  <p class="text-sm text-gray-600">Price Range: {{ restaurant.price_range }}</p>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Cuisine:</span> {{ restaurant.cuisine }}
+  </p>
+  <div class="description-container mt-1">
+    <p class="text-sm text-gray-600 m-0">
+      <span class="bold-tag">Description:</span> {{ restaurant.description }}
+    </p>
+  </div>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Preparation Time:</span>
+    {{ restaurant.preparation_time }} mins
+  </p>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Price Range:</span> {{ restaurant.price_range }}
+  </p>
 </div>

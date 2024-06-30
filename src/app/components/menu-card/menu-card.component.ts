@@ -1,10 +1,11 @@
 import { NgIf } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-menu-card',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, FormsModule],
   templateUrl: './menu-card.component.html',
   styleUrl: './menu-card.component.css',
 })

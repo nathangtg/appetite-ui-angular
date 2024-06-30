@@ -128,7 +128,12 @@ export class MenuRestaurantComponent implements OnInit {
     }
   }
 
-  getOrderedItems(): { menu_id: number; quantity: number; price: number }[] {
+  getOrderedItems(): {
+    menu_id: number;
+    quantity: number;
+    price: number;
+    note: string;
+  }[] {
     console.log('Getting ordered items');
     const orderedItems = this.menuItems.filter((item) => item.quantity > 0);
     console.log(orderedItems);
@@ -138,6 +143,7 @@ export class MenuRestaurantComponent implements OnInit {
       menu_id: item.id,
       quantity: item.quantity,
       price: item.price,
+      note: item.note,
     }));
   }
 
@@ -162,7 +168,12 @@ export class MenuRestaurantComponent implements OnInit {
   }
 
   handlePlaceOrder(
-    orderItems: { menu_id: number; quantity: number; price: number }[]
+    orderItems: {
+      menu_id: number;
+      quantity: number;
+      price: number;
+      note: string;
+    }[]
   ) {
     console.log('Placing order');
 
@@ -180,6 +191,7 @@ export class MenuRestaurantComponent implements OnInit {
       menu_id: item.menu_id,
       quantity: item.quantity,
       price: item.price,
+      note: item.note,
     }));
 
     this.orderService

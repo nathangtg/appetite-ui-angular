@@ -1,34 +1,46 @@
-<div class="flex justify-center">
-  <div
-    (click)="redirectToPage()"
-    class="cursor-pointer sm:w-72 lg:w-72 md:w-72 w-60 h-auto rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105"
-  >
-    <img
-      class="w-full h-48 object-cover"
-      [src]="restaurant.image_path"
-      alt="Image of {{ restaurant.name }}"
-    />
-    <div class="px-4 py-2 bg-white">
-      <div class="font-bold text-xl text-gray-900 mb-2">
-        {{ restaurant.name }}
-      </div>
-      <p class="text-gray-700 text-base">
-        {{ restaurant.description }}
-      </p>
-    </div>
-    <div class="px-4 py-2 flex flex-wrap">
-      <span
-        class="bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2"
-        >{{ restaurant.cuisine }}</span
-      >
-      <span
-        class="bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2"
-        >{{ restaurant.preparation_time }}</span
-      >
-      <span
-        class="bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2"
-        >{{ restaurant.price_range }}</span
-      >
-    </div>
+<style>
+  .description-container {
+    height: 2.5rem; /* Adjust the height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .bold-tag {
+    font-weight: bold;
+  }
+  .m-0 {
+    margin: 0;
+  }
+  .mt-2 {
+    margin-top: 0.5rem;
+  }
+</style>
+
+<div class="bg-white p-6 rounded-lg shadow-md h-96" (click)="redirectToPage()">
+  <img
+    [src]="restaurant.image_path"
+    alt="{{ restaurant.name }}"
+    class="w-full h-32 object-cover rounded-lg mb-4"
+  />
+  <h3 class="text-lg font-semibold text-gray-800 m-0">{{ restaurant.name }}</h3>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Address:</span> {{ restaurant.address }}
+  </p>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Cuisine:</span> {{ restaurant.cuisine }}
+  </p>
+  <div class="description-container mt-1">
+    <p class="text-sm text-gray-600 m-0">
+      <span class="bold-tag">Description:</span> {{ restaurant.description }}
+    </p>
   </div>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Preparation Time:</span>
+    {{ restaurant.preparation_time }} mins
+  </p>
+  <p class="text-sm text-gray-600 m-0 mt-2">
+    <span class="bold-tag">Price Range:</span> {{ restaurant.price_range }}
+  </p>
 </div>
