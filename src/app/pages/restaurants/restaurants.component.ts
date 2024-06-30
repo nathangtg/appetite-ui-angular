@@ -120,7 +120,19 @@ export class RestaurantsComponent {
   }
 
   filterByRating() {
-    this.applyFilters();
+    let filtered = this.restaurants;
+
+    if (this.selectedRating !== '') {
+      filtered = filtered.filter(
+        (r) => parseFloat(r.average_rating) >= parseFloat(this.selectedRating)
+      );
+    }
+
+    if (this.selectedCuisine) {
+      filtered = filtered.filter((r) => r.cuisine === this.selectedCuisine);
+    }
+
+    this.filteredRestaurants = filtered;
   }
 
   filterByCuisine() {

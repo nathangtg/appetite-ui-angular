@@ -108,4 +108,36 @@ export class OrderService {
 
     return this.http.put<any>(url, orderData, { headers });
   }
+
+  giveRating(
+    restaurantId: string,
+    orderId: string,
+    rating: number,
+    comment: string
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json', // Ensure correct content type
+    });
+
+    // Construct the URL with dynamic values
+    const url = `${this.apiUrl}/rate/${restaurantId}/${orderId}`;
+
+    return this.http.post<any>(
+      url,
+      {
+        order_id: orderId,
+        restaurant_id: restaurantId,
+        rating: rating,
+        comment: comment,
+      },
+      { headers }
+    );
+  }
 }

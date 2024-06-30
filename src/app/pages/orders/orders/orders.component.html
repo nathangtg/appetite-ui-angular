@@ -101,6 +101,28 @@
           >Completed</span
         >
       </div>
+
+      <!-- Add rating button or rated text -->
+      <div *ngIf="order.status === 'completed'" class="flex justify-end">
+        <ng-container *ngIf="order.is_rated">
+          <span class="text-blue-500">Rated</span>
+        </ng-container>
+        <ng-container *ngIf="!order.is_rated">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="openRatingModal(order)"
+          >
+            Add Rating
+          </button>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- Rating Modal -->
+<app-rating-modal
+  *ngIf="showRatingModal"
+  (ratingSubmitted)="submitRating($event.rating, $event.comment)"
+>
+</app-rating-modal>
