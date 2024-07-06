@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu/menu.service';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from '../../services/order/order.service';
 import { MenuCardComponent } from '../../components/menu-card/menu-card.component';
-import { NgFor, NgIf } from '@angular/common';
-import { response } from 'express';
-import { error } from 'console';
 import { RestaurantHeaderBoxComponent } from '../../components/restaurant-header-box/restaurant-header-box.component';
 import { HomeRestaurantBreadcrumbComponent } from '../../components/home-restaurant-breadcrumb/home-restaurant-breadcrumb.component';
 import { MenuSectionComponent } from '../../components/menu-section/menu-section.component';
@@ -13,15 +11,15 @@ import { CartButtonComponent } from '../../components/cart-button/cart-button.co
 import { OrderButtonComponent } from '../../components/order-button/order-button.component';
 import { ToastComponent } from '../../components/toast/toast.component';
 import { EmailModalComponent } from '../../components/email-modal/email-modal.component';
-import { OrderService } from '../../services/order/order.service';
+import { FormsModule } from '@angular/forms';
+import { MenuFilterComponent } from '../../components/menu-filter/menu-filter.component';
 
 @Component({
   selector: 'app-menu-restaurant',
   standalone: true,
   imports: [
+    FormsModule,
     MenuCardComponent,
-    NgFor,
-    NgIf,
     RestaurantHeaderBoxComponent,
     HomeRestaurantBreadcrumbComponent,
     MenuSectionComponent,
@@ -30,6 +28,7 @@ import { OrderService } from '../../services/order/order.service';
     OrderButtonComponent,
     ToastComponent,
     EmailModalComponent,
+    MenuFilterComponent,
   ],
   templateUrl: './menu-restaurant.component.html',
   styleUrls: ['./menu-restaurant.component.css'],
@@ -44,7 +43,7 @@ export class MenuRestaurantComponent implements OnInit {
   restaurantImage: string | null = null;
   restaurantPreparationTime: string | null = null;
 
-  // TOast properties
+  // Toast properties
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: 'success' | 'error' | 'warning' | 'info' = 'info';
@@ -52,6 +51,11 @@ export class MenuRestaurantComponent implements OnInit {
   // Menu properties
   menuItems: any[] = [];
   itemsWithQuantity: any[] = [];
+  filteredMenuItems: any[] = [];
+
+  // Filter properties
+  selectedCategory: string | null = null;
+  searchQuery: string = '';
 
   // Modal properties
   showModal: boolean = false;
@@ -59,6 +63,8 @@ export class MenuRestaurantComponent implements OnInit {
   // Email properties
   email: string = '';
   orderType: 'dine-in' | 'takeaway' = 'takeaway';
+  MaxTableNumber: number = 0;
+  tableNumber: number = 0;
   paymentMethod: 'cash' | 'card' = 'cash';
 
   constructor(
@@ -72,6 +78,22 @@ export class MenuRestaurantComponent implements OnInit {
   ngOnInit() {
     this.fetchMenuItems();
     this.fetchRestaurantInformation();
+
+    // Initialize filtered items with all menu items
+    this.filteredMenuItems = this.menuItems;
+  }
+
+  filterMenuItemsBySearch() {
+    if (!this.searchQuery.trim()) {
+      this.filteredMenuItems = this.menuItems; // Reset to all items if search query is empty
+    } else {
+      const query = this.searchQuery.trim().toLowerCase();
+      this.filteredMenuItems = this.menuItems.filter(
+        (item) =>
+          item.name.toLowerCase().includes(query) ||
+          item.description.toLowerCase().includes(query)
+      );
+    }
   }
 
   fetchMenuItems() {
@@ -88,17 +110,9 @@ export class MenuRestaurantComponent implements OnInit {
     } else {
       console.error('Restaurant ID not found in route');
     }
-    console.log('Menu Items:', this.menuItems);
-  }
-
-  getItemsGreaterThanZero() {
-    console.log('Getting items greater than zero');
-    console.log(this.menuItems.filter((item) => item.quantity > 0));
-    return this.menuItems.filter((item) => item.quantity > 0);
   }
 
   fetchRestaurantInformation() {
-    console.log(this.restaurantName);
     if (this.restaurantId) {
       this.menuService.getRestaurantFromAPI(this.restaurantId).subscribe(
         (response) => {
@@ -109,13 +123,14 @@ export class MenuRestaurantComponent implements OnInit {
           this.restaurantAddress = response.address;
           this.restaurantImage = response.image_path;
           this.restaurantPreparationTime = response.preparation_time;
+          this.MaxTableNumber = response.number_of_tables;
         },
         (error) => {
-          console.log('Error', error);
+          console.error('Error fetching restaurant information:', error);
         }
       );
     } else {
-      console.error('Restaurant ID not found');
+      console.error('Restaurant ID not found in route');
     }
   }
 
@@ -128,16 +143,25 @@ export class MenuRestaurantComponent implements OnInit {
     }
   }
 
+  applyCategoryFilter(category: string | null) {
+    this.selectedCategory = category;
+    this.filteredMenuItems = this.filterMenuItemsByCategory(category);
+  }
+
+  private filterMenuItemsByCategory(category: string | null): any[] {
+    if (!category) {
+      return this.menuItems; // Return all items if no category selected
+    }
+    return this.menuItems.filter((item) => item.category === category);
+  }
+
   getOrderedItems(): {
     menu_id: number;
     quantity: number;
     price: number;
     note: string;
   }[] {
-    console.log('Getting ordered items');
     const orderedItems = this.menuItems.filter((item) => item.quantity > 0);
-    console.log(orderedItems);
-
     this.showModal = true;
     return orderedItems.map((item) => ({
       menu_id: item.id,
@@ -175,7 +199,11 @@ export class MenuRestaurantComponent implements OnInit {
       note: string;
     }[]
   ) {
-    console.log('Placing order');
+    if (this.tableNumber <= 0 || this.tableNumber > this.MaxTableNumber) {
+      console.error('Invalid table number:', this.tableNumber);
+      this.showToastMessage('error', 'Invalid table number');
+      return;
+    }
 
     if (!this.restaurantId) {
       console.error('Restaurant ID is null');
@@ -186,7 +214,6 @@ export class MenuRestaurantComponent implements OnInit {
       return;
     }
 
-    // Assuming the API expects only menu_id and quantity for each item
     const orderDetails = orderItems.map((item) => ({
       menu_id: item.menu_id,
       quantity: item.quantity,
@@ -199,6 +226,7 @@ export class MenuRestaurantComponent implements OnInit {
         this.email,
         'pending',
         this.orderType,
+        this.tableNumber,
         this.paymentMethod,
         'pending',
         this.restaurantId,
@@ -208,7 +236,7 @@ export class MenuRestaurantComponent implements OnInit {
         (response) => {
           console.log('Order created:', response);
           this.showToastMessage('success', 'Order placed successfully');
-          this.showModal = false; // Close the modal after successful order
+          this.showModal = false;
         },
         (error) => {
           console.error('Error placing order:', error);
@@ -220,11 +248,10 @@ export class MenuRestaurantComponent implements OnInit {
   handleOrderDetailsSubmit(details: any) {
     this.email = details.email;
     this.orderType = details.orderType;
+    this.tableNumber = details.tableNumber;
     this.paymentMethod = details.paymentMethod;
 
     const orderedItems = this.getOrderedItems();
-    console.log('Order details:', orderedItems);
-
     this.handlePlaceOrder(orderedItems);
   }
 }

@@ -1,0 +1,37 @@
+<div class="menu-filter flex flex-wrap items-center space-x-2 md:space-x-4">
+  <label for="category" class="text-gray-700 font-bold"
+    >Filter by Category:</label
+  >
+  <div
+    id="category"
+    class="flex flex-wrap space-y-2 md:space-y-0 md:space-x-4 mt-2 md:mt-0"
+  >
+    <!-- Option for All -->
+    <div
+      class="category-button rounded-full px-3 py-1 bg-white text-gray-800 cursor-pointer border border-gray-300"
+      [class.border-blue-300]="selectedCategory === null"
+      (click)="applyFilter(null)"
+    >
+      All
+    </div>
+    <!-- Options for each category -->
+    <div
+      *ngFor="let category of categories"
+      class="category-button rounded-full px-3 py-1 bg-white text-gray-800 cursor-pointer border {{
+        category.iconClass
+      }}"
+      [class.border-blue-300]="selectedCategory === category.value"
+      [class.border-green-300]="selectedCategory === category.value"
+      [class.border-yellow-300]="selectedCategory === category.value"
+      [class.border-red-300]="selectedCategory === category.value"
+      [class.border-purple-300]="selectedCategory === category.value"
+      [class.border-indigo-300]="selectedCategory === category.value"
+      [class.border-pink-300]="selectedCategory === category.value"
+      [class.border-gray-300]="selectedCategory === category.value"
+      [class.border-orange-300]="selectedCategory === category.value"
+      (click)="applyFilter(category.value)"
+    >
+      {{ category.displayName }}
+    </div>
+  </div>
+</div>

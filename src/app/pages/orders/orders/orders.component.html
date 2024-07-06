@@ -1,35 +1,33 @@
 <div class="container mx-auto px-4">
-  <h1 class="text-3xl font-bold mb-6">Orders</h1>
+  <h1 class="text-3xl font-bold mb-6 pt-8">Past Orders</h1>
 
   <!-- Filtering Options -->
-  <div
-    class="flex flex-wrap mb-4 justify-center space-y-2 sm:space-y-0 sm:space-x-4"
-  >
+  <div class="flex flex-wrap justify-start space-x-1 mb-4">
     <button
-      class="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      class="px-4 py-2 border border-blue-500 text-black rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
       (click)="setFilter('all')"
-      [ngClass]="{ 'bg-blue-600': currentFilter === 'all' }"
+      [class.bg-blue-600]="currentFilter === 'all'"
     >
-      All Orders
+      All
     </button>
     <button
-      class="w-full sm:w-auto px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+      class="px-4 py-2 border border-yellow-500 text-black rounded-full hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
       (click)="setFilter('pending')"
-      [ngClass]="{ 'bg-yellow-600': currentFilter === 'pending' }"
+      [class.bg-yellow-600]="currentFilter === 'pending'"
     >
       Pending
     </button>
     <button
-      class="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      class="px-4 py-2 border border-red-500 text-black rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
       (click)="setFilter('cancelled')"
-      [ngClass]="{ 'bg-red-600': currentFilter === 'cancelled' }"
+      [class.bg-red-600]="currentFilter === 'cancelled'"
     >
       Cancelled
     </button>
     <button
-      class="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+      class="px-4 py-2 border border-green-500 text-black rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
       (click)="setFilter('completed')"
-      [ngClass]="{ 'bg-green-600': currentFilter === 'completed' }"
+      [class.bg-green-600]="currentFilter === 'completed'"
     >
       Completed
     </button>
@@ -46,75 +44,124 @@
   >
     <div
       *ngFor="let order of filteredOrders"
-      class="border border-gray-200 rounded p-4 bg-white shadow-md"
-      [ngClass]="{
-        'bg-yellow-100': order.status === 'pending',
-        'bg-red-100': order.status === 'cancelled',
-        'bg-green-100': order.status === 'completed'
-      }"
+      class="border border-gray-200 rounded bg-white shadow-md"
     >
-      <div class="flex justify-between mb-2">
-        <div class="text-gray-500">{{ formatDate(order.created_at) }}</div>
-      </div>
-
-      <!-- Display order details -->
-      <div class="mb-2">
-        <div><span class="font-semibold">Email:</span> {{ order.email }}</div>
-        <div><span class="font-semibold">Total:</span> ${{ order.total }}</div>
-      </div>
-
-      <!-- Display more details -->
-      <div class="mb-2">
-        <div>
-          <span class="font-semibold">Order Type:</span> {{ order.order_type }}
+      <div class="p-4">
+        <div class="flex justify-between mb-2">
+          <div class="text-gray-500">{{ formatDate(order.created_at) }}</div>
+          <div class="text-gray-500">
+            {{ order.restaurant_name }} - Table {{ order.table_number }}
+          </div>
         </div>
-        <div>
-          <span class="font-semibold">Payment Method:</span>
-          {{ order.payment_method }}
-        </div>
-        <div>
-          <span class="font-semibold">Payment Status:</span>
-          {{ order.payment_status }}
-        </div>
-      </div>
 
-      <!-- Display status and cancel button -->
-      <div class="mb-2 flex justify-between items-center">
-        <div><span class="font-semibold">Status:</span> {{ order.status }}</div>
-        <button
-          *ngIf="order.status !== 'completed'"
-          (click)="cancelOrder(order.restaurant_id, order.id)"
-          class="px-4 py-2 rounded"
-          [ngClass]="{
-            'bg-red-500 text-white hover:bg-red-600':
-              order.status !== 'cancelled',
-            'bg-gray-500 text-white cursor-not-allowed':
-              order.status === 'cancelled'
-          }"
-          [disabled]="order.status === 'cancelled'"
+        <!-- Shortened order details shown initially -->
+        <div class="mb-2">
+          <div><span class="font-semibold">Email:</span> {{ order.email }}</div>
+          <div>
+            <span class="font-semibold">Total:</span> ${{ order.total }}
+          </div>
+          <div>
+            <span class="font-semibold">Status:</span> {{ order.status }}
+          </div>
+        </div>
+
+        <!-- Expand/Collapse Section with icons and animation -->
+        <div
+          [style.max-height]="order.isExpanded ? '500px' : '0'"
+          [style.opacity]="order.isExpanded ? '1' : '0'"
+          [style.overflow]="'hidden'"
+          [style.transition]="
+            'max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out'
+          "
+          [style.padding-top]="order.isExpanded ? '1rem' : '0'"
+          [style.padding-bottom]="order.isExpanded ? '1rem' : '0'"
         >
-          {{ order.status === "cancelled" ? "Cancelled" : "Cancel Order" }}
-        </button>
-        <span
-          *ngIf="order.status === 'completed'"
-          class="text-green-600 font-semibold"
-          >Completed</span
-        >
-      </div>
+          <div class="mt-4" [class.hidden]="!order.isExpanded">
+            <div class="">
+              <div>
+                <span class="font-semibold">Order Type:</span>
+                {{ order.order_type }}
+              </div>
+              <div>
+                <span class="font-semibold">Payment Method:</span>
+                {{ order.payment_method }}
+              </div>
+              <div>
+                <span class="font-semibold">Payment Status:</span>
+                {{ order.payment_status }}
+              </div>
+            </div>
 
-      <!-- Add rating button or rated text -->
-      <div *ngIf="order.status === 'completed'" class="flex justify-end">
-        <ng-container *ngIf="order.is_rated">
-          <span class="text-blue-500">Rated</span>
-        </ng-container>
-        <ng-container *ngIf="!order.is_rated">
+            <!-- Cancel and Rating Buttons -->
+            <div class="flex justify-between items-center mt-4">
+              <button
+                *ngIf="order.status !== 'completed'"
+                (click)="cancelOrder(order.restaurant_id, order.id)"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                [ngClass]="{
+                  'cursor-not-allowed': order.status === 'cancelled'
+                }"
+                [disabled]="order.status === 'cancelled'"
+              >
+                {{
+                  order.status === "cancelled" ? "Cancelled" : "Cancel Order"
+                }}
+              </button>
+
+              <ng-container *ngIf="order.status === 'completed'">
+                <span class="text-green-600 font-semibold">Completed</span>
+              </ng-container>
+
+              <ng-container
+                *ngIf="order.status === 'completed' && !order.is_rated"
+              >
+                <button
+                  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ml-2"
+                  (click)="openRatingModal(order)"
+                >
+                  Add Rating
+                </button>
+              </ng-container>
+
+              <ng-container
+                *ngIf="order.status === 'completed' && order.is_rated"
+              >
+                <span class="text-blue-500">Rated</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="flex justify-end items-center mt-2">
           <button
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            (click)="openRatingModal(order)"
+            class="text-blue-500 hover:text-blue-600 focus:outline-none"
+            (click)="toggleExpand(order)"
           >
-            Add Rating
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                *ngIf="!order.isExpanded"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+              <path
+                *ngIf="order.isExpanded"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
           </button>
-        </ng-container>
+        </div>
       </div>
     </div>
   </div>
@@ -124,5 +171,6 @@
 <app-rating-modal
   *ngIf="showRatingModal"
   (ratingSubmitted)="submitRating($event.rating, $event.comment)"
+  (closeModal)="closeRatingModal()"
 >
 </app-rating-modal>

@@ -14,7 +14,7 @@
             (click)="getInformation()"
             class="text-white hover:text-yellow-300"
           >
-            Contact
+            Orders
           </button>
           <button
             *ngIf="!isLoggedIn()"
@@ -72,12 +72,11 @@
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
         >About</a
       >
-      <button
-        (click)="getInformation()"
+      <a
+        href="/orders"
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
+        >About</a
       >
-        Contact
-      </button>
       <button
         *ngIf="!isLoggedIn()"
         ="class"

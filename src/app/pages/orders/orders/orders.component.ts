@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../services/order/order.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { RatingModalComponent } from '../../../components/rating-modal/rating-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 interface Order {
   id: string;
@@ -19,13 +20,17 @@ interface Order {
   is_rated: boolean;
   payment_method: string;
   payment_status: string;
+  restaurant_name: string;
+  table_number: number;
   created_at: string;
+  updated_at: string;
+  isExpanded?: boolean;
 }
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, RatingModalComponent],
+  imports: [NgClass, CommonModule, RatingModalComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css',
 })
@@ -116,8 +121,8 @@ export class OrdersComponent implements OnInit {
   }
 
   closeRatingModal() {
+    console.log('Closing rating modal');
     this.showRatingModal = false;
-    this.selectedOrder = null;
   }
 
   submitRating(rating: number, comment: string) {
@@ -149,5 +154,11 @@ export class OrdersComponent implements OnInit {
           console.error('Error submitting rating:', error);
         }
       );
+
+    this.showRatingModal = false;
+  }
+
+  toggleExpand(order: Order) {
+    order.isExpanded = !order.isExpanded;
   }
 }

@@ -49,6 +49,7 @@ export class OrderService {
     email: string,
     status: string,
     order_type: string,
+    table_number: number,
     payment_method: string,
     payment_status: string,
     restaurantId: string,
@@ -62,7 +63,15 @@ export class OrderService {
 
     return this.http.post<any>(
       `${this.apiUrl}/orders/${restaurantId}/create`,
-      { email, status, order_type, payment_method, payment_status, items },
+      {
+        email,
+        status,
+        order_type,
+        table_number,
+        payment_method,
+        payment_status,
+        items,
+      },
       {
         headers,
       }

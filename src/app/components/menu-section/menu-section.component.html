@@ -1,6 +1,8 @@
 <div class="mb-8">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <h2 class="text-2xl font-bold mb-4">Menus</h2>
+  <h2 class="text-2xl font-bold lg:mb-6 md:lg-mb-3 sm:mb-0">Menus</h2>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-start"
+  >
     <app-menu-card
       *ngFor="let item of menuItems"
       [menu]="item"

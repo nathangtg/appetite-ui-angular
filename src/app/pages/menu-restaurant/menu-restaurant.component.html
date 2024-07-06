@@ -14,8 +14,31 @@
     [restaurantPreparationTime]="restaurantPreparationTime"
   ></app-restaurant-header-box>
 
-  <app-menu-section
+  <div>
+    <app-menu-filter
+      (filterChanged)="applyCategoryFilter($event)"
+    ></app-menu-filter>
+  </div>
+
+  <div class="mt-4 p-2">
+    <label for="searchQuery" class="text-gray-700 font-bold">Search Menu</label>
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search menu items"
+      class="w-full px-4 py-2 mt-1 mb-6 text-sm text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      (input)="filterMenuItemsBySearch()"
+    />
+  </div>
+
+  <!-- <app-menu-section
     [menuItems]="menuItems"
+    (quantityChange)="handleQuantityChange($event)"
+  ></app-menu-section> -->
+
+  <!-- Get the filteredMenu -->
+  <app-menu-section
+    [menuItems]="filteredMenuItems"
     (quantityChange)="handleQuantityChange($event)"
   ></app-menu-section>
 
