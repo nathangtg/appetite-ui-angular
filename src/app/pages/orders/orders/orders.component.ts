@@ -49,6 +49,10 @@ export class OrdersComponent implements OnInit {
     this.fetchOrders();
   }
 
+  isLoggedIn(): boolean {
+    return localStorage.getItem('token') !== null;
+  }
+
   fetchOrders() {
     this.orderService.getOrdersByUserAPI().subscribe(
       (orders: Order[]) => {

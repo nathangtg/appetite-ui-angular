@@ -24,6 +24,9 @@ export class LoginComponent {
 
   loginResponse = {
     token: '',
+    user: {
+      account_type: '',
+    },
   };
 
   loginError: string = '';
@@ -58,7 +61,15 @@ export class LoginComponent {
       (response: any) => {
         console.log('Login successful:', response);
         this.loginResponse = response;
+
+        console.log('Token:', this.loginResponse.token);
+        console.log('Account type:', this.loginResponse.user.account_type);
+
         localStorage.setItem('token', this.loginResponse.token);
+        localStorage.setItem(
+          'account_type',
+          this.loginResponse.user.account_type
+        );
       },
       (error) => {
         console.error('Error during login:', error);
@@ -78,6 +89,7 @@ export class LoginComponent {
     console.log('Logging out');
     console.log('Token:', localStorage.getItem('token'));
     localStorage.removeItem('token');
+    localStorage.removeItem('account_type');
   }
 }
 

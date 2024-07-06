@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4" *ngIf="isLoggedIn()">
   <h1 class="text-3xl font-bold mb-6 pt-8">Past Orders</h1>
 
   <!-- Filtering Options -->
@@ -174,3 +174,15 @@
   (closeModal)="closeRatingModal()"
 >
 </app-rating-modal>
+
+<!-- Message for users who are not logged in -->
+<div class="container mx-auto px-4" *ngIf="!isLoggedIn()">
+  <div class="text-center mt-8">
+    <p class="text-xl font-semibold text-gray-700">
+      Log in to start viewing and creating order history.
+    </p>
+    <a routerLink="/auth/login" class="text-blue-500 hover:text-blue-600">
+      Log In
+    </a>
+  </div>
+</div>

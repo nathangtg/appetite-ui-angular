@@ -28,6 +28,7 @@ export class AccountService {
   getProfile() {
     const url = `${this.apiUrl}/user`;
     const token = localStorage.getItem('token');
+    const account_type = localStorage.getItem('account_type');
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,

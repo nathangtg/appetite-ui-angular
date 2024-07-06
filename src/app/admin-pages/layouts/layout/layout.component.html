@@ -3,7 +3,7 @@
 >
   <!-- Sidebar -->
   <aside
-    [ngClass]="{ hidden: !sidebarOpen, block: sidebarOpen, 'md:block': true }"
+    [ngClass]="{ hidden: !sidebarOpen, 'md:block': true }"
     class="w-64 bg-white dark:bg-gray-800 shadow-md md:static fixed z-10"
   >
     <div class="p-6">
@@ -66,6 +66,21 @@
         Menu
       </button>
     </div>
-    <router-outlet></router-outlet>
+
+    <!-- Conditional Content based on Login State -->
+    <ng-container *ngIf="isLoggedIn() && isRestaurant(); else notLoggedIn">
+      <router-outlet></router-outlet>
+    </ng-container>
+
+    <ng-template #notLoggedIn>
+      <div class="text-center mt-8">
+        <p class="text-xl font-semibold text-gray-700 dark:text-gray-100">
+          Log in to start admin panel.
+        </p>
+        <a routerLink="/auth/login" class="text-blue-500 hover:text-blue-600">
+          Log In
+        </a>
+      </div>
+    </ng-template>
   </div>
 </div>
