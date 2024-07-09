@@ -1,6 +1,8 @@
-<input
-  [(ngModel)]="searchTerm"
-  (input)="onSearch()"
-  placeholder="Search restaurants..."
-  class="self-center w-80 max-w-md p-2 my-4 text-lg border-2 border-gray-300 rounded-lg shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 placeholder-gray-400"
-/>
+<div class="flex justify-center w-full max-w-xl mx-auto px-4">
+  <input
+    [(ngModel)]="searchTerm"
+    (input)="onSearch()"
+    placeholder="Search restaurants..."
+    class="w-full py-3 px-6 text-lg bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition duration-300 ease-in-out placeholder-gray-400"
+  />
+</div>

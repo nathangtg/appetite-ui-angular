@@ -1,4 +1,4 @@
-<nav class="bg-black">
+<nav class="bg-orange_font">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
@@ -10,12 +10,7 @@
             >Restaurants</a
           >
           <a href="/orders" class="text-white hover:text-yellow-300">Orders</a>
-          <button
-            (click)="getInformation()"
-            class="text-white hover:text-yellow-300"
-          >
-            Orders
-          </button>
+          <a href="/" class="text-white hover:text-yellow-300">About</a>
           <button
             *ngIf="!isLoggedIn()"
             (click)="redirectToLogin()"
@@ -75,7 +70,7 @@
       <a
         href="/orders"
         class="text-white block px-3 py-2 rounded-md text-base font-medium"
-        >About</a
+        >Orders</a
       >
       <button
         *ngIf="!isLoggedIn()"

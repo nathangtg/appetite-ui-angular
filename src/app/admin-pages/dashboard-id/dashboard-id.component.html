@@ -1,5 +1,8 @@
-<div *ngIf="restaurant" class="restaurant-details p-4">
-  <h2 class="text-2xl font-bold mb-4">Edit Restaurant Details</h2>
+<div
+  *ngIf="restaurant"
+  class="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto"
+>
+  <h2 class="text-3xl font-bold mb-6 text-gray-800">Edit Restaurant Details</h2>
 
   <!-- Restaurant header box -->
   <app-restaurant-header-box
@@ -10,96 +13,139 @@
     [restaurantAddress]="restaurant.address"
     [restaurantImage]="restaurant.image_path"
     [restaurantPreparationTime]="restaurant.preparation_time.toString()"
+    class="mb-8"
   ></app-restaurant-header-box>
 
-  <!-- Text input fields -->
-  <app-text-input-field
-    label="Name"
-    [(value)]="restaurant.name"
-    required
-  ></app-text-input-field>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Basic Information -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">
+        Basic Information
+      </h3>
+      <app-text-input-field
+        label="Name"
+        [(value)]="restaurant.name"
+        required
+      ></app-text-input-field>
 
-  <app-text-input-field
-    label="Address"
-    [(value)]="restaurant.address"
-    required
-  ></app-text-input-field>
+      <app-text-input-field
+        label="Address"
+        [(value)]="restaurant.address"
+        required
+      ></app-text-input-field>
 
-  <!-- Cuisine Dropdown -->
-  <label for="cuisine" class="block text-sm font-medium text-gray-700">
-    Cuisine
-  </label>
-  <select
-    [(ngModel)]="restaurant.cuisine"
-    class="form-select block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 sm:text-sm"
-  >
-    <option value="" disabled selected hidden>Select Cuisine</option>
-    <option
-      *ngFor="let option of cuisineOptions"
-      [value]="option.toLowerCase()"
-    >
-      {{ option }}
-    </option>
-  </select>
+      <!-- Cuisine Dropdown -->
+      <div class="mb-4">
+        <label
+          for="cuisine"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Cuisine
+        </label>
+        <select
+          [(ngModel)]="restaurant.cuisine"
+          class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled selected hidden>Select Cuisine</option>
+          <option
+            *ngFor="let option of cuisineOptions"
+            [value]="option.toLowerCase()"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+    </div>
 
-  <app-text-area-field
-    label="Description"
-    [(value)]="restaurant.description"
-    required
-  ></app-text-area-field>
+    <!-- Additional Details -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">
+        Additional Details
+      </h3>
+      <app-text-area-field
+        label="Description"
+        [(value)]="restaurant.description"
+        required
+      ></app-text-area-field>
 
-  <app-text-input-field
-    label="Preparation Time (minutes)"
-    [(value)]="restaurant.preparation_time"
-    required
-  ></app-text-input-field>
+      <app-text-input-field
+        label="Preparation Time (minutes)"
+        [(value)]="restaurant.preparation_time"
+        required
+      ></app-text-input-field>
 
-  <!-- Price Range Dropdown -->
-  <label for="price_range" class="block text-sm font-medium text-gray-700">
-    Price Range
-  </label>
-  <select
-    class="form-select block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 sm:text-sm"
-    [(ngModel)]="restaurant.price_range"
-  >
-    <option *ngFor="let option of priceRangeOptions" [value]="option">
-      {{ option }}
-    </option>
-  </select>
+      <!-- Price Range Dropdown -->
+      <div class="mb-4">
+        <label
+          for="price_range"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Price Range
+        </label>
+        <select
+          class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+          [(ngModel)]="restaurant.price_range"
+        >
+          <option *ngFor="let option of priceRangeOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
 
   <!-- File upload -->
-  <div class="flex-col space-y-4 my-4">
-    <input
-      type="file"
-      (change)="onImageChange($event)"
-      class="border border-gray-300 p-2"
-    />
+  <div class="mt-8">
+    <h3 class="text-xl font-semibold mb-4 text-gray-700">Restaurant Image</h3>
+    <div class="flex items-center space-x-4">
+      <input
+        type="file"
+        (change)="onImageChange($event)"
+        class="hidden"
+        id="image-upload"
+      />
+      <label
+        for="image-upload"
+        class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+      >
+        Choose File
+      </label>
+      <span class="text-sm text-gray-600">{{
+        imageFileName || "No file chosen"
+      }}</span>
+    </div>
     <img
       *ngIf="imagePreview"
       [src]="imagePreview"
       alt="Image preview"
-      class="max-w-full h-auto"
+      class="mt-4 max-w-full h-auto rounded-lg shadow-md"
     />
     <button
-      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+      *ngIf="imagePreview"
+      class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
       (click)="saveImage()"
     >
-      Upload
+      Upload Image
     </button>
   </div>
 
   <!-- Action buttons -->
-  <app-action-button
-    buttonText="Save Changes"
-    (buttonClick)="saveChanges()"
-  ></app-action-button>
-  <app-action-button
-    buttonText="Delete Restaurant"
-    (buttonClick)="deleteRestaurant()"
-    buttonColor="red-500"
-    buttonHoverColor="red-700"
-    additionalClasses="my-4"
-  ></app-action-button>
+  <div class="mt-8 flex justify-between">
+    <app-action-button
+      buttonText="Save Changes"
+      (buttonClick)="saveChanges()"
+      buttonColor="green-500"
+      buttonHoverColor="green-600"
+      additionalClasses="px-6 py-3"
+    ></app-action-button>
+    <app-action-button
+      buttonText="Delete Restaurant"
+      (buttonClick)="deleteRestaurant()"
+      buttonColor="red-500"
+      buttonHoverColor="red-600"
+      additionalClasses="px-6 py-3"
+    ></app-action-button>
+  </div>
 </div>
 
 <!-- Loading indicator -->

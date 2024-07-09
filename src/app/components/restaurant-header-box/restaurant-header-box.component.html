@@ -1,22 +1,59 @@
-<!-- Restaurant Header -->
-<div *ngIf="restaurantName" class="mb-10">
-  <div
-    class="bg-gray-800 text-white shadow-md p-4 md:p-6 flex items-center justify-between h-24 rounded-b-md"
-  >
-    <div class="flex items-center">
-      <h1 class="text-2xl md:text-3xl font-bold mb-1 truncate">
-        {{ restaurantName }}
-      </h1>
+<div *ngIf="restaurantName" class="my-10 max-w-4xl mx-auto">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="px-6 py-2 flex items-center justify-between">
+      <div class="flex-col">
+        <h1
+          class="text-2xl md:text-3xl font-bold text-gray-800 truncate mb-0 pb-0"
+        >
+          {{ restaurantName }}
+        </h1>
+        <div class="flex items-center mb-2">
+          <div class="flex m-0">
+            <ng-container *ngFor="let _ of [1, 2, 3, 4, 5]; let i = index">
+              <svg
+                class="w-5 h-5"
+                [ngClass]="{
+                  'text-yellow-400': i < restaurantRating!,
+                  'text-gray-300': i >= restaurantRating!
+                }"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                ></path>
+              </svg>
+            </ng-container>
+          </div>
+          <span class="text-gray-600 text-sm ml-2">{{ restaurantRating }}</span>
+        </div>
+        <p class="text-sm text-gray-600">
+          <!-- {{ restaurantCuisine }} • {{ restaurantPriceRange }} -->
+          <!-- Make first letter of restaurantCuisine capital -->
+          {{
+            restaurantCuisine!.charAt(0).toUpperCase() +
+              restaurantCuisine!.slice(1)
+          }}
+          • {{ restaurantPriceRange }}
+        </p>
+      </div>
+      <div class="flex items-center">
+        <img
+          [src]="restaurantImage"
+          alt="{{ restaurantName }}"
+          class="w-16 h-16 object-cover rounded-full border-2 border-gray-200"
+        />
+      </div>
     </div>
-    <div class="flex items-center">
-      <img
-        [src]="restaurantImage"
-        alt="{{ restaurantName }}"
-        class="w-10 h-10 object-cover rounded-lg mr-4"
-      />
-      <button (click)="toggleDetails()" class="text-white focus:outline-none">
+    <div class="px-6">
+      <button
+        (click)="toggleDetails()"
+        class="w-full flex items-center justify-between text-gray-600 focus:outline-none"
+      >
+        <span class="text-sm font-medium">More details</span>
         <svg
-          class="w-6 h-6 transform transition-transform duration-300 ease-in-out"
+          class="w-5 h-5 transform transition-transform duration-300 ease-in-out"
           [ngClass]="{ 'rotate-180': detailsExpanded }"
           fill="none"
           stroke="currentColor"
@@ -31,28 +68,24 @@
           ></path>
         </svg>
       </button>
-    </div>
-  </div>
-  <div
-    class="bg-black text-white rounded-b-lg shadow-md overflow-hidden transition-all duration-500 ease-in-out"
-    [ngStyle]="{
-      'max-height': detailsExpanded ? '300px' : '0',
-      opacity: detailsExpanded ? 1 : 0,
-      padding: detailsExpanded ? '1rem 1.5rem' : '0 1.5rem'
-    }"
-  >
-    <div
-      class="transition-opacity duration-300"
-      [ngStyle]="{ opacity: detailsExpanded ? 1 : 0 }"
-    >
-      <p class="text-gray-400 text-sm">{{ restaurantAddress }}</p>
-      <p class="text-gray-400 text-sm">Cuisine: {{ restaurantCuisine }}</p>
-      <p class="text-gray-400 text-sm">
-        Price Range: {{ restaurantPriceRange }}
-      </p>
-      <p class="text-gray-400 text-sm">
-        Preparation Time: {{ restaurantPreparationTime }} minutes
-      </p>
+      <div
+        class="mt-4 overflow-hidden transition-all duration-300 ease-in-out"
+        [ngStyle]="{
+          'max-height': detailsExpanded ? '300px' : '0',
+          opacity: detailsExpanded ? 1 : 0
+        }"
+      >
+        <div class="space-y-2 text-sm text-gray-600">
+          <p>
+            <span class="font-medium">Address:</span> {{ restaurantAddress }}
+          </p>
+          <p>
+            <span class="font-medium">Preparation Time:</span>
+            {{ restaurantPreparationTime }} minutes
+          </p>
+          <p class="text-gray-500">{{ restaurantDescription }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

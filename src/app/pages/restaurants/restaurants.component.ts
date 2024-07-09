@@ -1,11 +1,12 @@
 import { RecommendationService } from './../../services/recommendation/recommendation.service';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RestaurantCardComponent } from '../../components/restaurant-card/restaurant-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
+import { AccountService } from '../../services/account/account.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RestaurantsComponent {
   restaurants: any[] = [];
+  username: string = '';
   filteredRestaurants: any[] = [];
   recommendedRestaurants: any[] = [];
   recentlyOrderedRestaurants: any[] = [];
@@ -45,13 +47,33 @@ export class RestaurantsComponent {
 
   constructor(
     private restaurantService: RestaurantService,
-    private recommendationService: RecommendationService
+    private recommendationService: RecommendationService,
+    private accountService: AccountService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    this.getUserInformation();
     this.fetchRestaurants();
     this.fetchRecentlyOrderedRestaurants();
     this.fetchRecommendedRestaurants();
+  }
+
+  getUserInformation() {
+    this.accountService.getProfile().subscribe({
+      next: (response: any) => {
+        console.log('User Information:', response);
+        this.username = response.name;
+      },
+      error: (error) => {
+        console.error('Error fetching user information:', error);
+      },
+    });
+  }
+
+  selectCuisine(cuisine: string) {
+    this.selectedCuisine = cuisine;
+    this.filterByCuisine();
   }
 
   fetchRestaurants() {
@@ -95,14 +117,17 @@ export class RestaurantsComponent {
   }
 
   onSearch(searchTerm: string) {
+    let filtered = this.restaurants;
+
     if (searchTerm) {
-      this.filteredRestaurants = this.restaurants.filter((restaurant) =>
+      filtered = filtered.filter((restaurant) =>
         restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
+      this.filteredRestaurants = filtered;
     } else {
-      this.filteredRestaurants = [...this.restaurants];
+      filtered = [...this.restaurants];
+      this.filteredRestaurants = filtered;
     }
-    this.applyFilters(); // Apply additional filters after search
   }
 
   applyFilters() {
@@ -114,6 +139,13 @@ export class RestaurantsComponent {
 
     if (this.selectedCuisine) {
       filtered = filtered.filter((r) => r.cuisine === this.selectedCuisine);
+    }
+
+    if (this.selectedRating && this.selectedCuisine) {
+      filtered = filtered.filter(
+        (r) =>
+          r.rating >= this.selectedRating && r.cuisine === this.selectedCuisine
+      );
     }
 
     this.filteredRestaurants = filtered;

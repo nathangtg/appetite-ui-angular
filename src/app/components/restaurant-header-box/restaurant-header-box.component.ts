@@ -1,10 +1,10 @@
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-restaurant-header-box',
   standalone: true,
-  imports: [NgIf, NgClass, NgStyle],
+  imports: [NgIf, NgClass, NgStyle, NgFor],
   templateUrl: './restaurant-header-box.component.html',
   styleUrl: './restaurant-header-box.component.css',
 })
@@ -17,6 +17,7 @@ export class RestaurantHeaderBoxComponent {
   @Input() restaurantAddress: string | null = null;
   @Input() restaurantImage: string | null = null;
   @Input() restaurantPreparationTime: string | null = null;
+  @Input() restaurantRating: number | null = null;
 
   detailsExpanded = false;
 

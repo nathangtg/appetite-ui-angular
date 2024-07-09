@@ -7,6 +7,14 @@ module.exports = {
       height: {
         "21.5rem": "21.5rem",
       },
+      fontFamily: {
+        glooock: ["Glooock", "serif"],
+      },
+      colors: {
+        orange_font: "#FCA311",
+        header_text: "#14213D",
+        light_beige: "#F5F5DC",
+      },
     },
   },
   plugins: [],

@@ -1,49 +1,81 @@
 <style>
-  .description-container {
-    height: 2.5rem; /* Adjust the height as needed */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit the number of lines */
-    -webkit-box-orient: vertical;
+  .restaurant-card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e0e0e0;
   }
-  .bold-tag {
-    font-weight: bold;
+  .restaurant-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
-  .m-0 {
+  .restaurant-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+  .restaurant-info {
+    flex-grow: 1;
+  }
+  .restaurant-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #333333;
+    margin: 0 0 0.25rem 0;
+  }
+  .restaurant-details {
+    font-size: 0.875rem;
+    color: #666666;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-  .mt-2 {
-    margin-top: 0.5rem; /* Add margin for spacing between elements */
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .status-active {
+    background-color: #10b981;
+  }
+  .status-inactive {
+    background-color: #ef4444;
+  }
+  .edit-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .edit-button:hover {
+    background-color: #2563eb;
   }
 </style>
 
-<div
-  class="bg-white p-6 rounded-lg shadow-md h-96"
-  (click)="redirectToSpecificRestaurant()"
->
+<div class="restaurant-card" (click)="redirectToSpecificRestaurant()">
   <img
     [src]="restaurant.image_path"
     alt="{{ restaurant.name }}"
-    class="w-full h-32 object-cover rounded-lg mb-4"
+    class="restaurant-image"
   />
-  <h3 class="text-lg font-semibold text-gray-800 m-0">{{ restaurant.name }}</h3>
-  <p class="text-sm text-gray-600 m-0 mt-2">
-    <span class="bold-tag">Address:</span> {{ restaurant.address }}
-  </p>
-  <p class="text-sm text-gray-600 m-0 mt-2">
-    <span class="bold-tag">Cuisine:</span> {{ restaurant.cuisine }}
-  </p>
-  <div class="description-container mt-1">
-    <p class="text-sm text-gray-600 m-0">
-      <span class="bold-tag">Description:</span> {{ restaurant.description }}
+  <div class="restaurant-info">
+    <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+    <p class="restaurant-details">
+      <span>•</span>
+      {{ restaurant.address }}
     </p>
   </div>
-  <p class="text-sm text-gray-600 m-0 mt-2">
-    <span class="bold-tag">Preparation Time:</span>
-    {{ restaurant.preparation_time }} mins
-  </p>
-  <p class="text-sm text-gray-600 m-0 mt-2">
-    <span class="bold-tag">Price Range:</span> {{ restaurant.price_range }}
-  </p>
 </div>

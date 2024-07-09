@@ -1,98 +1,171 @@
-<!-- Search Bar -->
-<div class="flex justify-center my-5">
-  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+<!-- Appealing or persuasive Text -->
+<div
+  class="my-8 px-6 lg:justify-center md:justify-center lg:flex lg:text-center"
+>
+  <h1 class="text-2xl font-semibold mb-1">
+    Hello,
+    <br />
+    <span class="text-orange_font font-extrabold">{{ username }}</span
+    >!
+  </h1>
 </div>
 
+<!-- Search Bar -->
+<app-search-bar
+  (search)="onSearch($event)"
+  class="w-full max-w-lg shadow-md rounded-full mb-4"
+></app-search-bar>
+
 <!-- Filtering Section -->
-<div class="flex justify-center items-center my-5">
-  <div class="flex flex-wrap items-center space-x-3">
+<div class="flex justify-center items-center my-4">
+  <div class="flex flex-wrap items-center space-x-4 justify-center">
+    <div class="relative">
+      <button
+        (click)="resetFilters()"
+        class="bg-white text-orange_font font-semibold py-3 px-8 rounded-full border border-orange_font hover:bg-blue-600 hover:text-white transition duration-300"
+      >
+        Reset Filters
+      </button>
+    </div>
+
     <!-- Filter by Rating -->
-    <div>
+    <div class="relative">
       <select
         id="rating"
         [(ngModel)]="selectedRating"
         (change)="filterByRating()"
-        class="p-2 border border-gray-300 rounded"
+        class="appearance-none bg-white border border-gray-300 rounded-full py-3 px-8 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
       >
         <option value="">All Ratings</option>
         <option *ngFor="let rating of ratings" [value]="rating">
           {{ rating }}+
         </option>
       </select>
+      <div
+        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+      >
+        <svg
+          class="fill-current h-4 w-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+          />
+        </svg>
+      </div>
     </div>
 
     <!-- Filter by Cuisine -->
-    <div>
-      <select
-        id="cuisine"
-        [(ngModel)]="selectedCuisine"
-        (change)="filterByCuisine()"
-        class="p-2 border border-gray-300 rounded"
-      >
-        <option value="">All Cuisines</option>
-        <option *ngFor="let cuisine of cuisines" [value]="cuisine.value">
-          {{ cuisine.display }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Reset Filters Button -->
-    <div>
-      <button
-        (click)="resetFilters()"
-        class="p-2 bg-blue-500 text-white rounded"
-      >
-        Reset Filters
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Restaurants Section -->
-<div class="flex justify-center p-5">
-  <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full"
-  >
-    <div *ngFor="let restaurant of filteredRestaurants">
-      <div
-        class="hover:transform hover:scale-105 transition-transform duration-300"
-      >
-        <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Recently Ordered Section -->
-<div class="my-5">
-  <h2 class="text-center text-2xl font-bold mb-3">Recently Ordered</h2>
-  <div class="flex justify-center p-5">
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full"
+      class="w-full overflow-hidden py-2 px-6 lg:flex lg:overflow-visible lg:flex-wrap lg:space-x-4 lg:justify-center lg:items-center lg:space-y-0"
     >
-      <div *ngFor="let restaurant of recentlyOrderedRestaurants">
+      <div
+        class="flex space-x-4 overflow-x-scroll lg:overflow-auto no-scrollbar w-96 px-6 mt-8 lg:w-full lg:justify-center"
+      >
         <div
-          class="hover:transform hover:scale-105 transition-transform duration-300"
+          *ngFor="let cuisine of cuisines"
+          (click)="selectCuisine(cuisine.value)"
+          class="flex flex-col items-center cursor-pointer"
         >
-          <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
+          <div
+            [class.bg-blue-500]="selectedCuisine === cuisine.value"
+            [class.text-white]="selectedCuisine === cuisine.value"
+            class="w-16 h-16 rounded-full flex items-center justify-center active:border-orange_font bg-gray-200 hover:bg-gray-300 transition-colors relative overflow-hidden border border-gray-300"
+          >
+            <img
+              [src]="'assets/images/cuisine/' + cuisine.value + '.png'"
+              alt="{{ cuisine.display }}"
+              class="w-10 h-10 object-cover"
+            />
+          </div>
+          <span class="mt-2 text-sm">{{ cuisine.display }}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Recommended Section -->
-<div class="my-5">
-  <h2 class="text-center text-2xl font-bold mb-3">Recommended</h2>
-  <div class="flex justify-center p-5">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full"
-    >
-      <div *ngFor="let restaurant of recommendedRestaurants">
+<!-- Restaurants Section -->
+<div class="my-4 px-6 lg:flex lg:justify-center">
+  <div class="lg:w-3/4">
+    <h2 class="text-2xl font-bold text-center">Restaurants</h2>
+    <div class="flex justify-center">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full justify-items-center"
+      >
         <div
-          class="hover:transform hover:scale-105 transition-transform duration-300"
+          *ngFor="let restaurant of filteredRestaurants"
+          class="w-full max-w-x lg:flex lg:justify-center"
         >
-          <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
+          <div
+            class="hover:transform hover:scale-105 transition-transform duration-300"
+          >
+            <app-restaurant-card
+              [restaurant]="restaurant"
+            ></app-restaurant-card>
+          </div>
+        </div>
+        <!-- If filtered restaurant is null say, there are no restaurants at the moment -->
+        <div
+          *ngIf="filteredRestaurants.length === 0"
+          class="w-full text-center flex justify-center items-center"
+        >
+          <div class="text-center text-gray-500 justify-center">
+            <p>There are no restaurants at the moment.</p>
+            <p
+              (click)="resetFilters()"
+              class="text-orange_font font-semibold cursor-pointer"
+            >
+              Reset your filter
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recently Ordered Section -->
+    <div class="my-4 px-6">
+      <h2 class="text-2xl font-bold mb-6 text-center">Recently Ordered</h2>
+      <div class="flex justify-center">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full justify-items-center"
+        >
+          <div
+            *ngFor="let restaurant of recentlyOrderedRestaurants"
+            class="w-full max-w-xs"
+          >
+            <div
+              class="hover:transform hover:scale-105 transition-transform duration-300"
+            >
+              <app-restaurant-card
+                [restaurant]="restaurant"
+              ></app-restaurant-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommended Section -->
+    <div class="my-4 px-6">
+      <h2 class="text-2xl font-bold mb-6 text-center">Recommended</h2>
+      <div class="flex justify-center">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full justify-items-center"
+        >
+          <div
+            *ngFor="let restaurant of recommendedRestaurants"
+            class="w-full max-w-xs"
+          >
+            <div
+              class="hover:transform hover:scale-105 transition-transform duration-300"
+            >
+              <app-restaurant-card
+                [restaurant]="restaurant"
+              ></app-restaurant-card>
+            </div>
+          </div>
         </div>
       </div>
     </div>

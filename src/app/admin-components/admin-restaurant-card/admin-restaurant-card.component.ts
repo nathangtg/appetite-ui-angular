@@ -1,5 +1,6 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 interface Restaurant {
@@ -16,7 +17,7 @@ interface Restaurant {
 @Component({
   selector: 'app-admin-restaurant-card',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FormsModule, NgClass],
   templateUrl: './admin-restaurant-card.component.html',
   styleUrl: './admin-restaurant-card.component.css',
 })

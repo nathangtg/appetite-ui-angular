@@ -43,6 +43,7 @@ export class DashboardIdComponent {
   restaurantId: number | null = null;
   imagePreview: string | null = null;
   selectedFile: File | null = null;
+  imageFileName: string = '';
 
   // Dropdown options
   priceRangeOptions: string[] = ['$', '$$', '$$$', '$$$$', '$$$$$'];
@@ -83,6 +84,7 @@ export class DashboardIdComponent {
   // Handle file change event for image upload
   onImageChange(event: any): void {
     const file = event.target.files[0];
+    this.imageFileName = file.name;
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {

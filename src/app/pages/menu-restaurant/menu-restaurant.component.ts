@@ -42,6 +42,7 @@ export class MenuRestaurantComponent implements OnInit {
   restaurantAddress: string | null = null;
   restaurantImage: string | null = null;
   restaurantPreparationTime: string | null = null;
+  restaurantRating: number | null = null;
 
   // Toast properties
   showToast: boolean = false;
@@ -124,6 +125,7 @@ export class MenuRestaurantComponent implements OnInit {
           this.restaurantImage = response.image_path;
           this.restaurantPreparationTime = response.preparation_time;
           this.MaxTableNumber = response.number_of_tables;
+          this.restaurantRating = response.average_rating;
         },
         (error) => {
           console.error('Error fetching restaurant information:', error);

@@ -12,6 +12,7 @@ import { DashboardIdLayoutComponent } from './admin-pages/layouts/dashboard-id-l
 import { OrderAdminComponent } from './admin-pages/order-admin/order-admin.component';
 import { MenuAdminComponent } from './admin-pages/menu-admin/menu-admin/menu-admin.component';
 import { OrdersComponent } from './pages/orders/orders/orders.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+      },
+      {
+        path: '',
+        component: AboutComponent,
       },
     ],
   },
