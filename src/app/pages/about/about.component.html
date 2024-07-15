@@ -1,31 +1,243 @@
-<!-- Whole Div -->
-<div class="flex flex-col">
-  <!-- Header Containing the About Page / Persuasive Title -->
-  <!-- This div should have a black background -->
-  <!-- The text should have range from the top  -->
-  <div
-    class="bg-black h-56 lg:h-96 font-extrabold flex justify-center items-end"
+<div class="flex flex-col min-h-screen bg-gray-100">
+  <!-- Header -->
+  <header
+    class="bg-gradient-to-r from-orange-500 to-red-600 text-white py-20 px-8"
   >
-    <span
-      class="font-glooock text-4xl lg:text-5xl md:text-4xl sm:text-4xl text-orange_font mb-4 lg:w-2/4 text-start"
-    >
-      Reimagine Restaurant Management. Switch to Appetite Connect
-    </span>
-  </div>
+    <div class="container mx-auto text-center">
+      <h1 class="font-bold text-5xl md:text-7xl mb-4">AppetiteConnect</h1>
+      <p class="text-xl md:text-3xl mb-8 pb-5">
+        Revolutionizing Restaurant Management in the Digital Age
+      </p>
+      <a
+        href="#"
+        class="bg-white text-orange-500 font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-100 transition duration-300"
+        >Get Started</a
+      >
+    </div>
+  </header>
 
-  <!-- Section Containing the About Page / Persuasive Title -->
-  <div
-    class="flex flex-col pt-12 pb-10 bg-orange_font lg:justify-center lg:flex-col lg:items-center lg:px-20 lg:py-20 md:justify-center md:flex-row md:items-center md:px-10 md:py-10 sm:justify-center sm:flex-row sm:items-center sm:px-5 sm:py-5"
-  >
-    <span class="font-glooock text-3xl text-header_text font-extrabold pb-5"
-      >Transform</span
-    >
-    <span class="text-xl">
-      Stepping into the digital world with Appetite Connect, your restaurant is
-      destined for culinary stardom. Our platform brings the power of POS into
-      the palms of your servers. It’s quick service at its finest.
-    </span>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-8 py-16">
+    <!-- Value Proposition -->
+    <section class="mb-20 text-center">
+      <div>
+        <h2 class="text-4xl font-bold mb-6">
+          Empowering Restaurants of All Sizes
+        </h2>
+        <div class="text-xl mb-8 max-w-3xl mx-auto">
+          <p class="text-center">
+            AppetiteConnect bridges the digital divide, offering powerful tools
+            for online presence, customer engagement, and operational
+            efficiency. From food trucks to fine dining, we're leveling the
+            playing field in the digital restaurant landscape.
+          </p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="text-4xl text-orange-500 mb-4">📈</div>
+          <h3 class="font-bold text-xl mb-2">Boost Visibility</h3>
+          <p>Increase your online presence and attract more customers</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="text-4xl text-orange-500 mb-4">💼</div>
+          <h3 class="font-bold text-xl mb-2">Streamline Operations</h3>
+          <p>Efficient POS and management tools to save time and money</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="text-4xl text-orange-500 mb-4">🚀</div>
+          <h3 class="font-bold text-xl mb-2">Scale Your Business</h3>
+          <p>
+            Grow from a single location to a multi-branch operation seamlessly
+          </p>
+        </div>
+      </div>
+    </section>
 
-  <!-- Section Containing the About Page / Persuasive Title -->
+    <!-- Key Features -->
+    <section class="mb-20">
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        Powerful Features for Modern Restaurants
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Intuitive Website Creation
+          </h3>
+          <p class="mb-4">
+            Build a stunning website with our drag-and-drop interface. No coding
+            required.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Customizable templates</li>
+            <li>Mobile-responsive design</li>
+            <li>SEO optimization built-in</li>
+          </ul>
+        </div>
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Advanced POS System
+          </h3>
+          <p class="mb-4">
+            Streamline your operations with our cloud-based Point of Sale
+            system.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Real-time order management</li>
+            <li>Multi-device compatibility</li>
+            <li>Integrated payment processing</li>
+          </ul>
+        </div>
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Customer Insights
+          </h3>
+          <p class="mb-4">
+            Leverage data to understand your customers and grow your business.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Detailed analytics dashboard</li>
+            <li>Customer behavior tracking</li>
+            <li>Personalized marketing tools</li>
+          </ul>
+        </div>
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Inventory Management
+          </h3>
+          <p class="mb-4">
+            Keep track of your stock and optimize your supply chain.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Real-time inventory tracking</li>
+            <li>Automated reordering</li>
+            <li>Waste reduction analysis</li>
+          </ul>
+        </div>
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Staff Management
+          </h3>
+          <p class="mb-4">
+            Efficiently manage your team and optimize scheduling.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Shift planning and tracking</li>
+            <li>Performance analytics</li>
+            <li>Integrated payroll system</li>
+          </ul>
+        </div>
+        <div
+          class="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
+        >
+          <h3 class="font-bold text-2xl mb-4 text-orange-500">
+            Multi-Channel Integration
+          </h3>
+          <p class="mb-4">
+            Connect with customers across various platforms seamlessly.
+          </p>
+          <ul class="list-disc list-inside text-gray-600">
+            <li>Social media management</li>
+            <li>Third-party delivery integration</li>
+            <li>Loyalty program support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="mb-20">
+      <h2 class="text-4xl font-bold mb-12 text-center">
+        What Our Customers Say
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-lg shadow-md">
+          <p class="mb-4 italic">
+            "AppetiteConnect transformed our small family restaurant. We've seen
+            a 40% increase in online orders since implementing their platform."
+          </p>
+          <p class="font-bold">- Maria Rodriguez, Owner of Casa Bella</p>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-md">
+          <p class="mb-4 italic">
+            "The analytics tools have given us invaluable insights into our
+            customers' preferences. We've optimized our menu and seen profits
+            soar."
+          </p>
+          <p class="font-bold">- John Smith, CEO of Urban Eats Chain</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center bg-orange-100 py-16 px-8 rounded-lg">
+      <h2 class="text-4xl font-bold mb-6">
+        Ready to Elevate Your Restaurant's Digital Presence?
+      </h2>
+      <div class="flex justify-center py-8">
+        <p
+          class="text-xl mb-8 max-w-3xl mx-auto text-center flex justify-center self-center"
+        >
+          Join thousands of restaurants that have transformed their operations
+          with AppetiteConnect. Start your journey to digital success today.
+        </p>
+      </div>
+      <a
+        href="#"
+        class="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-xl hover:bg-orange-600 transition duration-300"
+        >Schedule a Demo</a
+      >
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="font-bold text-lg mb-4">AppetiteConnect</h3>
+        <p>Revolutionizing restaurant management for the digital age.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+        <ul>
+          <li><a href="#" class="hover:text-orange-500">Features</a></li>
+          <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
+          <li><a href="#" class="hover:text-orange-500">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-4">Resources</h3>
+        <ul>
+          <li><a href="#" class="hover:text-orange-500">Blog</a></li>
+          <li><a href="#" class="hover:text-orange-500">Support Center</a></li>
+          <li>
+            <a href="#" class="hover:text-orange-500">API Documentation</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-4">Connect</h3>
+        <ul>
+          <li><a href="#" class="hover:text-orange-500">Contact Us</a></li>
+          <li><a href="#" class="hover:text-orange-500">LinkedIn</a></li>
+          <li><a href="#" class="hover:text-orange-500">Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="container mx-auto px-8 mt-8 pt-8 border-t border-gray-700 text-center"
+    >
+      <p>&copy; 2024 AppetiteConnect. All rights reserved.</p>
+    </div>
+  </footer>
 </div>

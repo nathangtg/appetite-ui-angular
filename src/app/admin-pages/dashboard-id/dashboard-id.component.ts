@@ -19,6 +19,7 @@ interface Restaurant {
   image_path: string;
   preparation_time: number;
   price_range: number | string;
+  average_rating: number;
 }
 
 @Component({
@@ -44,6 +45,7 @@ export class DashboardIdComponent {
   imagePreview: string | null = null;
   selectedFile: File | null = null;
   imageFileName: string = '';
+  restaurantRating: number | null = null;
 
   // Dropdown options
   priceRangeOptions: string[] = ['$', '$$', '$$$', '$$$$', '$$$$$'];

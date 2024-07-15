@@ -105,4 +105,63 @@ export class MenuService {
       })
     );
   }
+
+  // createMenuItemInAPI(
+  //   restaurantId: string,
+  //   formData: FormData
+  // ): Observable<any> {
+  //   const token = localStorage.getItem('token');
+
+  //   if (!token) {
+  //     return throwError('No token found');
+  //   }
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   return this.http.post(
+  //     `${this.apiUrl}/menus/${restaurantId}/create`,
+  //     formData,
+  //     { headers }
+  //   );
+  // }
+
+  createMenuItemInAPI(
+    restaurantId: string,
+    formData: FormData
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return throwError('No token found');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(
+      `${this.apiUrl}/menus/${restaurantId}/create`,
+      formData,
+      { headers }
+    );
+  }
+
+  deleteMenuItemInAPI(restaurantId: string, menuId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return throwError('No token found');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.delete(
+      `${this.apiUrl}/menus/${restaurantId}/${menuId}/delete`,
+      { headers }
+    );
+  }
 }

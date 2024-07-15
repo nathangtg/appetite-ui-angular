@@ -13,12 +13,14 @@ import { OrderAdminComponent } from './admin-pages/order-admin/order-admin.compo
 import { MenuAdminComponent } from './admin-pages/menu-admin/menu-admin/menu-admin.component';
 import { OrdersComponent } from './pages/orders/orders/orders.component';
 import { AboutComponent } from './pages/about/about.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: UserLayoutComponent,
     children: [
+      { path: 'profile', component: ProfilePageComponent },
       { path: 'auth/login', component: LoginComponent },
       { path: 'auth/register', component: RegisterComponent },
       { path: 'restaurants', component: RestaurantsComponent },

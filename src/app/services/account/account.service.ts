@@ -38,6 +38,17 @@ export class AccountService {
     return this.http.get(url, options);
   }
 
+  updateProfile(profileData: any, profileId: string) {
+    const url = `${this.apiUrl}/update/users/${profileId}`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.put(url, profileData, { headers });
+  }
+
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }

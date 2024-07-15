@@ -1,0 +1,114 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-orange-400 to-red-500 flex justify-center items-center p-4"
+>
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+    <h2 class="text-3xl font-bold mb-6 text-orange-600">Profile</h2>
+
+    <div *ngIf="!isEditing" class="space-y-4">
+      <div class="bg-orange-50 p-4 rounded-md">
+        <p class="text-gray-700">
+          <strong class="text-orange-600">Name:</strong> {{ userProfile?.name }}
+        </p>
+      </div>
+      <div class="bg-orange-50 p-4 rounded-md">
+        <p class="text-gray-700">
+          <strong class="text-orange-600">Email:</strong>
+          {{ userProfile?.email }}
+        </p>
+      </div>
+      <div class="bg-orange-50 p-4 rounded-md">
+        <p class="text-gray-700">
+          <strong class="text-orange-600">Preferred Cuisine:</strong>
+          {{ getCuisineLabel(userProfile?.preferred_cuisine) }}
+        </p>
+      </div>
+      <div class="bg-orange-50 p-4 rounded-md">
+        <p class="text-gray-700">
+          <strong class="text-orange-600">Account Type:</strong>
+          {{ userProfile?.account_type }}
+        </p>
+      </div>
+      <button
+        (click)="toggleEdit()"
+        class="w-full bg-orange-500 text-white py-3 px-4 rounded-md hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+      >
+        Edit Profile
+      </button>
+    </div>
+
+    <div *ngIf="isEditing">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+            >Name</label
+          >
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Email</label
+          >
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+          />
+        </div>
+        <div>
+          <label
+            for="preferred_cuisine"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Preferred Cuisine</label
+          >
+          <select
+            id="preferred_cuisine"
+            formControlName="preferred_cuisine"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 bg-white"
+          >
+            <option value="" disabled>Select a cuisine</option>
+            <option
+              *ngFor="let cuisine of cuisineOptions"
+              [value]="cuisine.value"
+            >
+              {{ cuisine.label }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="account_type"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Account Type</label
+          >
+          <input
+            id="account_type"
+            type="text"
+            formControlName="account_type"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-orange-500 text-white py-3 px-4 rounded-md hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+        >
+          Update Profile
+        </button>
+        <button
+          type="button"
+          (click)="toggleEdit()"
+          class="w-full bg-gray-300 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 mt-2"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

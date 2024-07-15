@@ -21,10 +21,20 @@ export class MenuListComponent {
   @Input() menuItems: any[] = [];
   restaurantId: string | null = null;
   editForm: FormGroup | null = null;
+  addMenuForm: FormGroup;
+  showAddForm: boolean = false;
+  selectedFile: File | null = null;
 
   LoadingMenuComponent: boolean = false;
 
-  constructor(private menuService: MenuService, private fb: FormBuilder) {}
+  constructor(private menuService: MenuService, private fb: FormBuilder) {
+    this.addMenuForm = this.fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+    });
+  }
 
   ngOnInit() {
     this.LoadingMenuComponent = true;
@@ -66,7 +76,6 @@ export class MenuListComponent {
       name: [menuItem.name, Validators.required],
       description: [menuItem.description, Validators.required],
       price: [menuItem.price, Validators.required],
-      // image: [null],
       display: [menuItem.display, Validators.required],
     });
   }
@@ -121,7 +130,64 @@ export class MenuListComponent {
   }
 
   toggleDisplay(menuItem: any) {
-    // Toggle the display value between 'yes' and 'no'
-    menuItem.display = menuItem.display === 'yes' ? 'no' : menuItem.display;
+    menuItem.display = menuItem.display === 'yes' ? 'no' : 'yes';
+  }
+
+  toggleAddForm() {
+    this.showAddForm = !this.showAddForm;
+    if (!this.showAddForm) {
+      this.addMenuForm.reset();
+      this.selectedFile = null;
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0] as File;
+  }
+
+  deleteMenuItem(menuItem: any) {
+    this.menuService
+      .deleteMenuItemInAPI(this.restaurantId!, menuItem.id)
+      .subscribe(
+        (response) => {
+          console.log('Deleted menu item:', response);
+          this.fetchMenu();
+        },
+        (error) => {
+          console.error('Failed to delete menu item:', error);
+        }
+      );
+  }
+
+  submitAddForm() {
+    if (this.addMenuForm.valid && this.restaurantId) {
+      const formData = new FormData();
+      formData.append('name', this.addMenuForm.get('name')!.value);
+      formData.append('category', this.addMenuForm.get('category')!.value);
+      formData.append(
+        'description',
+        this.addMenuForm.get('description')!.value
+      );
+      formData.append('price', this.addMenuForm.get('price')!.value);
+
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile, this.selectedFile.name);
+      }
+
+      this.menuService
+        .createMenuItemInAPI(this.restaurantId, formData)
+        .subscribe(
+          (response) => {
+            console.log('Menu item created:', response);
+            this.addMenuForm.reset();
+            this.selectedFile = null;
+            this.showAddForm = false;
+            this.fetchMenu();
+          },
+          (error) => {
+            console.error('Error creating menu item:', error);
+          }
+        );
+    }
   }
 }

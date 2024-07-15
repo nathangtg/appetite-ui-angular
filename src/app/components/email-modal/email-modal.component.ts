@@ -18,6 +18,10 @@ export class EmailModalComponent {
   email: string = '';
   orderType: 'dine-in' | 'takeaway' = 'takeaway';
   paymentMethod: 'cash' | 'card' = 'cash';
+  cardNumber: string = '';
+  expiryDate: string = '';
+  cvv: string = '';
+  cardholderName: string = '';
 
   // Fetch the table number from the restaurant
   tableNumber: number = this.tableNumbers[0];
