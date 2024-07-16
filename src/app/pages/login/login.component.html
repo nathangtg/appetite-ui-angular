@@ -38,13 +38,20 @@
       <div *ngIf="loginError" class="text-red-500 text-center">
         {{ loginError }}
       </div>
+      <div *ngIf="loginSuccess" class="text-green-500 text-center">
+        {{ loginSuccess }}, Redirecting...
+      </div>
     </form>
     <div class="mt-4 text-center">
-      <a href="#" class="text-orange-500 hover:underline">Forgot Password?</a>
+      <a href="auth/forgot-password" class="text-orange-500 hover:underline"
+        >Forgot Password?</a
+      >
     </div>
     <div class="mt-6 text-center text-gray-600">
       Don't have an account?
-      <a href="#" class="text-orange-500 hover:underline">Sign up</a>
+      <a href="auth/register" class="text-orange-500 hover:underline"
+        >Sign up</a
+      >
     </div>
   </div>
 </div>

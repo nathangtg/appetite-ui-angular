@@ -24,7 +24,7 @@ import { AccountService } from '../../services/account/account.service';
 })
 export class RestaurantsComponent {
   restaurants: any[] = [];
-  username: string = '';
+  username: string = 'Foodie';
   filteredRestaurants: any[] = [];
   recommendedRestaurants: any[] = [];
   recentlyOrderedRestaurants: any[] = [];
@@ -53,10 +53,8 @@ export class RestaurantsComponent {
   ) {}
 
   ngOnInit() {
-    this.getUserInformation();
+    this.isLoggedIn();
     this.fetchRestaurants();
-    this.fetchRecentlyOrderedRestaurants();
-    this.fetchRecommendedRestaurants();
   }
 
   getUserInformation() {
@@ -69,6 +67,17 @@ export class RestaurantsComponent {
         console.error('Error fetching user information:', error);
       },
     });
+  }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.getUserInformation();
+      this.fetchRecommendedRestaurants();
+      this.fetchRecentlyOrderedRestaurants();
+      return true;
+    }
+    return false;
   }
 
   selectCuisine(cuisine: string) {

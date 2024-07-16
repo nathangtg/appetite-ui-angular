@@ -30,50 +30,31 @@ export class LoginComponent {
   };
 
   loginError: string = '';
+  loginSuccess: string = '';
 
   constructor(private AccountService: AccountService) {}
-
-  // onSubmit() {
-  //   let token: string; // Declare token as a string variable
-  //   const url = `${this.apiUrl}/auth/login`;
-  //   this.http.post(url, this.loginData, { withCredentials: true }).subscribe(
-  //     (response) => {
-  //       console.log('Login successful:', response);
-  //       this.loginResponse = response as any;
-  //       token = this.loginResponse.token;
-  //     },
-  //     (error) => {
-  //       console.error('Error during login:', error);
-  //     }
-  //   );
-  // }
-
-  // onSubmit() {
-  //   this.AccountService.onLogin(this.loginData).subscribe((response: any) => {
-  //     console.log('Login successful:', response);
-  //     this.loginResponse = response;
-  //     localStorage.setItem('token', this.loginResponse.token);
-  //   });
-  // }
 
   onSubmit() {
     this.AccountService.onLogin(this.loginData).subscribe(
       (response: any) => {
-        console.log('Login successful:', response);
         this.loginResponse = response;
-
-        console.log('Token:', this.loginResponse.token);
-        console.log('Account type:', this.loginResponse.user.account_type);
 
         localStorage.setItem('token', this.loginResponse.token);
         localStorage.setItem(
           'account_type',
           this.loginResponse.user.account_type
         );
+
+        this.loginSuccess = 'Login successful!';
+
+        // Redirect to dashboard
+        window.location.href = '/restaurants';
+
+        this.loginError = '';
       },
       (error) => {
-        console.error('Error during login:', error);
-        this.loginError = 'Invalid email or password. Please try again.'; // You can customize this error message based on your backend response
+        this.loginError = 'Invalid email or password. Please try again.';
+        this.loginSuccess = '';
       }
     );
   }
@@ -86,8 +67,6 @@ export class LoginComponent {
   }
 
   onLogout() {
-    console.log('Logging out');
-    console.log('Token:', localStorage.getItem('token'));
     localStorage.removeItem('token');
     localStorage.removeItem('account_type');
   }
