@@ -8,13 +8,13 @@ import {
 } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { AccountService } from '../../services/account/account.service';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgForOf],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css',
 })
@@ -36,6 +36,11 @@ export class ProfilePageComponent implements OnInit {
       account_type: [''],
     });
   }
+
+  accountOptions = [
+    { value: 'customer', label: 'Customer' },
+    { value: 'restaurant', label: 'Restaurant' },
+  ];
 
   cuisineOptions = [
     { value: 'malay', label: 'Malay' },
@@ -75,6 +80,11 @@ export class ProfilePageComponent implements OnInit {
   getCuisineLabel(value: string): string {
     const cuisine = this.cuisineOptions.find((c) => c.value === value);
     return cuisine ? cuisine.label : value;
+  }
+
+  getAccountTypeLabel(value: string): string {
+    const accountType = this.accountOptions.find((a) => a.value === value);
+    return accountType ? accountType.label : value;
   }
 
   toggleEdit(): void {
