@@ -14,6 +14,8 @@ import { MenuAdminComponent } from './admin-pages/menu-admin/menu-admin/menu-adm
 import { OrdersComponent } from './pages/orders/orders/orders.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +24,9 @@ export const routes: Routes = [
     children: [
       { path: 'profile', component: ProfilePageComponent },
       { path: 'auth/login', component: LoginComponent },
+      { path: 'password-reset/:token', component: ResetPasswordComponent },
       { path: 'auth/register', component: RegisterComponent },
+      { path: 'auth/forgot-password', component: ForgotPasswordComponent },
       { path: 'restaurants', component: RestaurantsComponent },
       {
         path: 'restaurants/:id',

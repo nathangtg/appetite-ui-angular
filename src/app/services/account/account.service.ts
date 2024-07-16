@@ -38,6 +38,26 @@ export class AccountService {
     return this.http.get(url, options);
   }
 
+  sendPasswordResetEmail(email: string) {
+    const url = `${this.apiUrl}/forgot-password`;
+    return this.http.post(url, { email });
+  }
+
+  resetPassword(
+    token: string,
+    email: string,
+    password: string,
+    password_confirmation: string
+  ) {
+    const url = `${this.apiUrl}/reset-password`;
+    return this.http.post(url, {
+      token,
+      email,
+      password,
+      password_confirmation,
+    });
+  }
+
   updateProfile(profileData: any, profileId: string) {
     const url = `${this.apiUrl}/update/users/${profileId}`;
     const token = localStorage.getItem('token');
