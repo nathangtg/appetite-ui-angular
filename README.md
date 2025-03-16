@@ -1,27 +1,103 @@
-# AppetiteUiAngular
+# Appetite UI Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
+A modern and responsive front-end application for food ordering systems, built with Angular. This UI connects to the [Appetite API](https://github.com/nathangtg/appetite-api) backend to provide a complete food ordering platform with both customer and admin experiences.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Responsive Design**: Optimized user experience across mobile, tablet, and desktop devices
+- **Customer Portal**: Browse restaurants, view menus, place orders, and track order status
+- **Admin Dashboard**: Comprehensive management tools for restaurants, menus, and orders
+- **Authentication**: Secure login and registration with role-based access control
+- **Order Management**: Complete order lifecycle from creation to fulfillment
+- **Restaurant Profiles**: Detailed restaurant information with operating hours and contact details
+- **Menu Management**: Tools for creating and organizing food menus with categories
+- **Order History**: Track past orders and reorder favorite items
+- **Real-time Updates**: Live order status updates using reactive programming principles
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Framework**: Angular 16+
+- **State Management**: RxJS for reactive programming
+- **Routing**: Angular Router for SPA experience
+- **HTTP Communication**: Angular HTTP Client
+- **Styling**: SCSS with responsive design principles
+- **UI Components**: Custom components with Material Design influences
+- **Authentication**: JWT token-based authentication
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Prerequisites
 
-## Running unit tests
+- Node.js 14+ and npm
+- Angular CLI 16+
+- Appetite API backend running
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Installation
 
-## Running end-to-end tests
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nathangtg/appetite-ui-angular.git
+   cd appetite-ui-angular
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Further help
+3. Configure the environment:
+   Update `src/environments/environment.ts` with your API endpoint:
+   ```typescript
+   export const environment = {
+     production: false,
+     apiUrl: 'http://localhost:8000/api'
+   };
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. Run the development server:
+   ```bash
+   ng serve
+   ```
+
+5. Navigate to `http://localhost:4200` in your browser
+
+## Key Components
+
+### Customer Experience
+
+- **Restaurant Browser**: Browse and search restaurants
+- **Menu Viewer**: View restaurant menus with categories and item details
+- **Cart Management**: Add items to cart, modify quantities, and proceed to checkout
+- **Order Placement**: Complete the ordering process with delivery options
+- **Order Tracking**: Track order status from placement to delivery
+- **User Profile**: Manage personal information and view order history
+
+### Admin Dashboard
+
+- **Restaurant Management**: Create, edit, and manage restaurant profiles
+- **Menu Editor**: Build and organize menus with categories and items
+- **Order Handling**: Process incoming orders and update order status
+- **User Management**: Manage system users and roles
+- **Analytics**: View sales data, popular items, and customer trends
+
+## Deployment
+
+Build the application for production:
+
+```bash
+ng build --configuration production
+```
+
+The build artifacts will be stored in the `dist/` directory, ready for deployment to any static hosting service.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Related Projects
+
+- [Appetite API](https://github.com/nathangtg/appetite-api) - Laravel backend for the Appetite food ordering platform
